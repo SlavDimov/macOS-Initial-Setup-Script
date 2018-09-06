@@ -1,9 +1,9 @@
 # Dependencies
-InstallXCodeCmdDevTools			# UninstallXCodeCmdDevTools
-InstallHomebrew				    # UninstallHomebrew
+InstallXCodeCmdDevTools         # UninstallXCodeCmdDevTools
+InstallHomebrew                 # UninstallHomebrew
 
 # Apps
-InstallVSCode				    # UninstallVSCode
+InstallVSCode                   # UninstallVSCode
 InstallChrome                   # UninstallChrome
 InstallSkype                    # UninstallSkype
 InstallSpotify                  # UninstallSpotify

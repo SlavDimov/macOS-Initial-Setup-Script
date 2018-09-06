@@ -14,6 +14,26 @@ APP_DIRS = [
 ]
 
 # Description:
+# This function can be called to install an app via Homebrew
+# Parameters:
+#   app - the homebrew name of the app
+#   passw - the sudo password that every function needs to receive
+#            as argument. It will be passed to ext_call
+#   ext_verbose - Default - False. If set to true every it will set
+#                 every ext_call's verbose parameter to True.
+#
+# TODO: Find a way to not crash if brew is not installed.
+# (Currently crashes because i don't want to create import loops with dependencies.py)
+def install_app(app, passw, ext_verbose=False):
+    if not check_command_exists('brew'):
+        sys.exit('Homebrew is not installed, cannot install app...')
+    # if app is not installed
+    if not ext_call([['brew', 'cask', 'list', app]], getstdout=True):
+        #dummy command, so cask won't ask for password again
+        ext_call([['echo']], sudopass=passw)
+        ext_call([['brew','cask','install', app]], verbose=ext_verbose)
+
+# Description:
 # This function can be called to COMPLETELY remove an app and all
 # of it's settings.
 # It will first check if homebrew is installed, and if it is
@@ -22,7 +42,7 @@ APP_DIRS = [
 # 'APP_DIRS', it will search for the application names defined
 # by the user, and it will delete every file/folder that matches.
 #
-# Usage:
+# Parameters:
 #   app_names:
 #       A list containing all of the application defined names.
 #       This is a list, because apps typically have different
@@ -93,7 +113,7 @@ def delete_app(app_names, passw, misc_files_and_dirs=None, nobrew=False,
 
 # Description:
 # It uses subprocess to make calls to bash commands.
-# Usage:
+# Parameters:
 #   cmd_list - a list of lists ( [ [], [], ...] ) with all the commands (passed the
 #       way 'subprocess.Popen()' expects them) that need to be executed.
 #       If more than one sublist(command) is present inside the main list it will be piped

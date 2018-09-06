@@ -8,15 +8,8 @@ import dependencies
 # Installs Microsoft's Visual Studio Code editor via Homebrew
 def InstallVSCode(passw):
 	print("Installing Visual Studio Code...")
-
 	if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
-
-	#dummy command, so cask won't ask for password again
-	util.ext_call([['echo']], sudopass=passw)
-
-	util.ext_call([['brew','cask','install', 'visual-studio-code']],
-	#				verbose=True
-	)
+	util.install_app('visual-studio-code', passw)
 
 # Description:
 # Uninstalls Microsoft's Visual Studio Code editor
@@ -42,15 +35,8 @@ def UninstallVSCode(passw):
 # Installs Microsoft's Skype via Homebrew
 def InstallSkype(passw):
 	print("Installing Skype...")
-
 	if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
-
-	#dummy command, so cask won't ask for password again
-	util.ext_call([['echo']], sudopass=passw)
-
-	util.ext_call([['brew','cask','install', 'skype']],
-	#				verbose=True
-	)
+	util.install_app('skype', passw)
 
 # Description:
 # Uninstalls Microsoft's Skype
@@ -75,15 +61,8 @@ def UninstallSkype(passw):
 # Installs Google Chrome via Homebrew
 def InstallChrome(passw):
 	print("Installing Chrome...")
-
 	if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
-
-	#dummy command, so cask won't ask for password again
-	util.ext_call([['echo']], sudopass=passw)
-
-	util.ext_call([['brew','cask','install', 'google-chrome']],
-	#				verbose=True
-	)
+	util.install_app('google-chrome', passw)
 
 # Description:
 # Uninstalls Google Chrome
@@ -108,15 +87,8 @@ def UninstallChrome(passw):
 # Installs Spotify via Homebrew
 def InstallSpotify(passw):
 	print("Installing Spotify...")
-
 	if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
-
-	#dummy command, so cask won't ask for password again
-	util.ext_call([['echo']], sudopass=passw)
-
-	util.ext_call([['brew','cask','install', 'spotify']],
-	#				verbose=True
-	)
+	util.install_app('spotify', passw)
 
 # Description:
 # Uninstalls Spotify
