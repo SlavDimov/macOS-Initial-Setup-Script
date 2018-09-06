@@ -5,11 +5,14 @@ import sqlite3
 import time
 from getpass import getpass
 
+import util
+
 import dependencies
 globals().update({k:vars(dependencies)[k] for k in vars(dependencies) if not re.match('^__.+__$', k)})
 import apps
 globals().update({k:vars(apps)[k] for k in vars(apps) if not re.match('^__.+__$', k)})
-import util
+import tweaks
+globals().update({k:vars(tweaks)[k] for k in vars(tweaks) if not re.match('^__.+__$', k)})
 
 
 class Run:
@@ -47,7 +50,7 @@ class Run:
             for line in f:
                 line = line.partition('#')[0]
                 line = line.strip()
-                func_list.append(line)
+                if not re.match('^\s*$', line): func_list.append(line)
         return func_list
     
     def __run_func_list(self, func_list):

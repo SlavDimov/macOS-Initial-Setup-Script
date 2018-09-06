@@ -1,6 +1,16 @@
+# Dependencies
 InstallXCodeCmdDevTools			# UninstallXCodeCmdDevTools
 InstallHomebrew				    # UninstallHomebrew
+
+# Apps
 InstallVSCode				    # UninstallVSCode
 InstallChrome                   # UninstallChrome
 InstallSkype                    # UninstallSkype
 InstallSpotify                  # UninstallSpotify
+
+# Finder Tweaks
+FinderShowHiddenFiles           # FinderHideHiddenFiles
+FinderShowQuitMenu              # FinderHideQuitMenu
+
+# Dock Tweaks
+# DockShowOnlyActiveApp         # DockShowAllActiveApp
