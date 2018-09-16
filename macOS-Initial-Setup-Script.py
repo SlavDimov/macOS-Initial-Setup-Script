@@ -13,6 +13,8 @@ import apps
 globals().update({k:vars(apps)[k] for k in vars(apps) if not re.match('^__.+__$', k)})
 import tweaks
 globals().update({k:vars(tweaks)[k] for k in vars(tweaks) if not re.match('^__.+__$', k)})
+import tools
+globals().update({k:vars(tools)[k] for k in vars(tools) if not re.match('^__.+__$', k)})
 
 
 class Run:

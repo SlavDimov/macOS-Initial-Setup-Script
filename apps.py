@@ -9,7 +9,9 @@ import dependencies
 def InstallVSCode(passw):
 	print("Installing Visual Studio Code...")
 	if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
-	util.install_app('visual-studio-code', passw)
+	util.install_app('visual-studio-code', passw,
+                    #   ext_verbose=True
+                     )
 
 # Description:
 # Uninstalls Microsoft's Visual Studio Code editor
@@ -23,7 +25,7 @@ def UninstallVSCode(passw):
 	additional_dirs = [
 		os.path.join(os.path.expanduser('~'), '.vscode')
 	]
-	util.delete_app([cfg_file, app_dir, support_dir], passw,
+	util.remove_app([cfg_file, app_dir, support_dir], passw,
 	 				 misc_files_and_dirs=additional_dirs,
 					 brewname=brewname,
 	#				 debug=True,
@@ -36,7 +38,9 @@ def UninstallVSCode(passw):
 def InstallSkype(passw):
 	print("Installing Skype...")
 	if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
-	util.install_app('skype', passw)
+	util.install_app('skype', passw,
+                    #   ext_verbose=True
+                     )
 
 # Description:
 # Uninstalls Microsoft's Skype
@@ -49,7 +53,7 @@ def UninstallSkype(passw):
 	brewname = 'skype'
 	additional_dirs = [
 	]
-	util.delete_app([cfg_file, app_dir, support_dir], passw,
+	util.remove_app([cfg_file, app_dir, support_dir], passw,
 	 				 misc_files_and_dirs=additional_dirs,
 					 brewname=brewname,
 	#				 debug=True,
@@ -62,7 +66,9 @@ def UninstallSkype(passw):
 def InstallChrome(passw):
 	print("Installing Chrome...")
 	if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
-	util.install_app('google-chrome', passw)
+	util.install_app('google-chrome', passw,
+                    #   ext_verbose=True
+                     )
 
 # Description:
 # Uninstalls Google Chrome
@@ -75,7 +81,7 @@ def UninstallChrome(passw):
 	brewname = 'google-chrome'
 	additional_dirs = [
 	]
-	util.delete_app([cfg_file, app_dir, support_dir], passw,
+	util.remove_app([cfg_file, app_dir, support_dir], passw,
 	 				 misc_files_and_dirs=additional_dirs,
 					 brewname=brewname,
 	#				 debug=True,
@@ -88,7 +94,9 @@ def UninstallChrome(passw):
 def InstallSpotify(passw):
 	print("Installing Spotify...")
 	if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
-	util.install_app('spotify', passw)
+	util.install_app('spotify', passw,
+                    #   ext_verbose=True
+                     )
 
 # Description:
 # Uninstalls Spotify
@@ -101,7 +109,7 @@ def UninstallSpotify(passw):
 	brewname = 'spotify'
 	additional_dirs = [
 	]
-	util.delete_app([cfg_file, app_dir, support_dir], passw,
+	util.remove_app([cfg_file, app_dir, support_dir], passw,
 	 				 misc_files_and_dirs=additional_dirs,
 					 brewname=brewname,
 	#				 debug=True,

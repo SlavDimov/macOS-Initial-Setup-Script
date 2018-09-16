@@ -8,6 +8,9 @@ InstallChrome                   # UninstallChrome
 InstallSkype                    # UninstallSkype
 InstallSpotify                  # UninstallSpotify
 
+# Terminal Apps
+InstallGolang                   # UninstallGolang
+
 # Finder Tweaks
 FinderShowHiddenFiles           # FinderHideHiddenFiles
 FinderShowQuitMenu              # FinderHideQuitMenu
