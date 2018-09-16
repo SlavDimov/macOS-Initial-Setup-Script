@@ -1,5 +1,5 @@
 import sys
-import util
+from util import util
 
 
 # Description:

@@ -5,7 +5,7 @@ import sqlite3
 import time
 from getpass import getpass
 
-import util
+from util import util
 
 import dependencies
 globals().update({k:vars(dependencies)[k] for k in vars(dependencies) if not re.match('^__.+__$', k)})

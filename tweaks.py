@@ -1,6 +1,6 @@
 import os
 import sys
-import util
+from util import util
 import dependencies
 
 # Description:
