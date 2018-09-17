@@ -1,19 +1,29 @@
 # Dependencies
-InstallXCodeCmdDevTools         # UninstallXCodeCmdDevTools
-InstallHomebrew                 # UninstallHomebrew
+InstallXCodeCmdDevTools                 # UninstallXCodeCmdDevTools
+InstallHomebrew                         # UninstallHomebrew
 
 # Apps
-InstallVSCode                   # UninstallVSCode
-InstallChrome                   # UninstallChrome
-InstallSkype                    # UninstallSkype
-InstallSpotify                  # UninstallSpotify
+InstallVSCode                           # UninstallVSCode
+InstallChrome                           # UninstallChrome
+InstallSkype                            # UninstallSkype
+InstallSpotify                          # UninstallSpotify
 
 # Terminal Apps
-InstallGolang                   # UninstallGolang
+InstallGolang                           # UninstallGolang
 
 # Finder Tweaks
-FinderShowHiddenFiles           # FinderHideHiddenFiles
-FinderShowQuitMenu              # FinderHideQuitMenu
+FinderShowHiddenFiles                   # FinderHideHiddenFiles
+FinderShowQuitMenu                      # FinderHideQuitMenu
 
 # Dock Tweaks
-# DockShowOnlyActiveApp         # DockShowAllActiveApp
+# DockShowOnlyActiveApp                 # DockShowAllActiveApp
+
+# System UI Tweaks
+# SystemDarkMenuAndDock                 # SystemLightMenuAndDock
+# SystemAutoHideMenuBar                 # SystemNoHideMenuBar
+# SystemAppearanceGraphite              # SystemAppearanceBlue
+SystemSidebarIconsSmall                 # SystemSidebarIconsMedium            # SystemSidebarIconsLarge
+# SystemShowScrollbarWhenScrolling      # SystemShowScrollbarAutomatic        # SystemShowScrollbarAlways
+SystemClickScrollbarClickedSpot         # SystemClickScrollbarNextPage
+SystemAskToKeepChanges                  # SystemDontAskToKeepChanges
+# SystemDontCloseWindowsOnAppQuit       # SystemCloseWindowsOnAppQuit

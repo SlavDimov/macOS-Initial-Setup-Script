@@ -8,7 +8,7 @@ from util import util
 # and provide many more tools, such as gcc, make, git etc.
 def InstallXCodeCmdDevTools(passw):
     print('Installing XCode Command Line Developer Tools...')
-    util.ext_call([['osascript', 'general.scpt', 'InstallXCodeCmdDevTools']])
+    util.ext_call([['osascript', 'dependencies.scpt', 'InstallXCodeCmdDevTools']])
 
 # Description:
 # This function will remove the XCode Command Developer Tools

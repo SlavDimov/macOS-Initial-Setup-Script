@@ -81,7 +81,7 @@ class Run:
                 terminal_allowed = c.execute(check_permission_terminal).fetchone()[0]
                 if not (script_allowed and terminal_allowed):
                     print("\n%s\n\n%s\n\n..." % (msg_title, msg))
-                    util.ext_call([['osascript', 'general.scpt', 'AskForAccessibilityPermitions', msg_title, msg]])
+                    util.ext_call([['osascript', 'dependencies.scpt', 'AskForAccessibilityPermitions', msg_title, msg]])
                     while not (script_allowed and terminal_allowed):
                         script_allowed = c.execute(check_permission_script_editor).fetchone()[0]
                         terminal_allowed = c.execute(check_permission_terminal).fetchone()[0]
