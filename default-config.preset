@@ -1,24 +1,31 @@
-# Dependencies
+## Dependencies
 InstallXCodeCmdDevTools                 # UninstallXCodeCmdDevTools
 InstallHomebrew                         # UninstallHomebrew
 
-# Apps
+## Apps
 InstallVSCode                           # UninstallVSCode
 InstallChrome                           # UninstallChrome
 InstallSkype                            # UninstallSkype
 InstallSpotify                          # UninstallSpotify
 
-# Terminal Apps
+## Terminal Apps
 InstallGolang                           # UninstallGolang
 
-# Finder Tweaks
+## Finder Tweaks
 FinderShowHiddenFiles                   # FinderHideHiddenFiles
 FinderShowQuitMenu                      # FinderHideQuitMenu
+FinderRestart
 
-# Dock Tweaks
-# DockShowOnlyActiveApp                 # DockShowAllActiveApp
+## Dock Tweaks
+# DockShowOnlyActiveApp                 # DockShowAllActiveApps
+DockSizeSmaller                         # DockSizeStock                       # DockSizeBigger
+DockMagnificationOn                     # DockMagnificationOff
+DockMagnificationSizeSmall              # DockMagnificationSizeStock
+# DockPositionLeft                      # DockPositionRight                   # DockPositionBottom
+# DockWindowEffectScale                 # DockWindowEffectGenie
+DockRestart
 
-# System UI Tweaks
+## System UI Tweaks
 # SystemDarkMenuAndDock                 # SystemLightMenuAndDock
 # SystemAutoHideMenuBar                 # SystemNoHideMenuBar
 # SystemAppearanceGraphite              # SystemAppearanceBlue

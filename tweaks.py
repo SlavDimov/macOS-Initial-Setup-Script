@@ -7,44 +7,122 @@ import dependencies
 # This tweak will make Finder show hidden files and folders.
 def FinderShowHiddenFiles(passw):
     print('Showing hidden files in Finder...')
-    util.ext_call([['killall', 'Finder']])
     util.ext_call([['defaults', 'write', 'com.apple.finder', 'AppleShowAllFiles', '-bool', 'true']])
 
 # Description:
 # This tweak will make Finder hide hidden files and folders.
 def FinderHideHiddenFiles(passw):
     print('Hiding hidden files in Finder...')
-    util.ext_call([['killall', 'Finder']])
     util.ext_call([['defaults', 'write', 'com.apple.finder', 'AppleShowAllFiles', '-bool', 'false']])
 
 # Description:
 # This tweak will make Finder show 'Quit' option in it's menu.
 def FinderShowQuitMenu(passw):
     print('Showing \'Quit\' menu in Finder...')
-    util.ext_call([['killall', 'Finder']])
     util.ext_call([['defaults', 'write', 'com.apple.finder', 'QuitMenuItem', '-bool', 'true']])
 
 # Description:
 # This tweak will make Finder hide the 'Quit' option in it's menu.
 def FinderHideQuitMenu(passw):
     print('Hiding \'Quit\' menu in Finder...')
-    util.ext_call([['killall', 'Finder']])
     util.ext_call([['defaults', 'write', 'com.apple.finder', 'QuitMenuItem', '-bool', 'false']])
+
+# Description:
+# Restarts Finder (this allows settings to be applied)
+def FinderRestart(passw):
+    print('Restarting Finder...')
+    util.ext_call([['killall', 'Finder']])
 
 # Description:
 # This tweak will make Dock to show only the windows of the currently
 # focused application. All other windows are hidden in the background.
 def DockShowOnlyActiveApp(passw):
-    print('Showing only active app windows with Dock...')
-    util.ext_call([['killall', 'Dock']])
+    print('Showing only active app windows with Dock...')  
     util.ext_call([['defaults', 'write', 'com.apple.dock', 'single-app', '-bool', 'true']])
 
 # Description:
 # This tweak will make Dock to show all non-minimised windows
-def DockShowAllActiveApp(passw):
-    print('Showing all app windows with Dock...')
-    util.ext_call([['killall', 'Dock']])
+def DockShowAllActiveApps(passw):
+    print('Showing all app windows with Dock...')  
     util.ext_call([['defaults', 'write', 'com.apple.dock', 'single-app', '-bool', 'false']])
+
+# Description:
+# This tweak will make Dock a bit smaller
+def DockSizeSmaller(passw):
+    print('Making Dock a smaller size...')  
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'tilesize', '-int', '45']])
+
+# Description:
+# This tweak will make Dock a bit bigger
+def DockSizeBigger(passw):
+    print('Making Dock a bigger size...') 
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'tilesize', '-int', '59']])
+
+# Description:
+# This tweak will return Dock to it's stock size
+def DockSizeStock(passw):
+    print('Returning Dock to it\'s stock size...') 
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'tilesize', '-int', '52']])
+
+# Description:
+# This tweak will turn on Dock magnification
+def DockMagnificationOn(passw):
+    print('Turning on Dock magnification...')  
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'magnification', '-int', '1']])
+
+# Description:
+# This tweak will turn off Dock magnification
+def DockMagnificationOff(passw):
+    print('Turning off Dock magnification...')   
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'magnification', '-int', '0']])
+
+# Description:
+# This tweak will turn return Dock's magnification size small
+def DockMagnificationSizeSmall(passw):
+    print('Setting Dock\'s magnification size to small...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'largesize', '-int', '64']])
+
+# Description:
+# This tweak will turn return Dock's magnification size to stock
+def DockMagnificationSizeStock(passw):
+    print('Returning Dock\'s magnification size to stock...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'largesize', '-int', '128']])
+
+# Description:
+# This tweak will set Dock's position to the left
+def DockPositionLeft(passw):
+    print('Setting Dock\'s position to the left...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'orientation', 'left']])
+
+# Description:
+# This tweak will set Dock's position to the right
+def DockPositionRight(passw):
+    print('Setting Dock\'s position to the right...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'orientation', 'right']])
+
+# Description:
+# This tweak will set Dock's position to the bottom
+def DockPositionBottom(passw):
+    print('Setting Dock\'s position to the bottom...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'orientation', 'bottom']])
+
+# Description:
+# This tweak will set Dock's window minimizing effect to scale
+def DockWindowEffectScale(passw):
+    print('Setting Dock\'s window minimizing effect to scale...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'mineffect', 'scale']])
+
+# Description:
+# This tweak will set Dock's window minimizing effect to genie
+def DockWindowEffectGenie(passw):
+    print('Setting Dock\'s window minimizing effect to genie...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'mineffect', 'genie']])
+
+# Description:
+# Restarts Dock (this allows settings to be applied)
+def DockRestart(passw):
+    print('Restarting Dock...')
+    util.ext_call([['killall', 'Dock']])
 
 # Description:
 # This tweak will make the Dock and Menu bar switch to a dark theme
@@ -170,6 +248,8 @@ def SystemCloseWindowsOnAppQuit(passw):
 def SystemDontCloseWindowsOnAppQuit(passw):
     print('Unsetting \'Close windows when quitting an app\'...')
     util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'NSQuitAlwaysKeepsWindows', '-int', '1']])
+
+
 
     
 if __name__ == '__main__':
