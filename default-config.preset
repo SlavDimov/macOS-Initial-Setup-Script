@@ -10,6 +10,7 @@ InstallSpotify                          # UninstallSpotify
 
 ## Terminal Apps
 InstallGolang                           # UninstallGolang
+InstallPython3                          # UninstallPython3
 
 ## Finder Tweaks
 FinderShowHiddenFiles                   # FinderHideHiddenFiles

@@ -36,7 +36,7 @@ def UninstallGolang(passw):
 
     brewname = 'go'    
     install_dir = ''
-    if not util.check_command_exists('brew'):
+    if util.check_command_exists('brew'):
         install_dir = util.ext_call([['brew', '--prefix', brewname]],
                                     getstdout=True).strip(' \t\n')
     else:
@@ -71,6 +71,49 @@ def UninstallGolang(passw):
                         ) 
     
 
+# Description:
+# Installs Python3 via Homebrew
+def InstallPython3(passw):
+    print("Installing Python3...")
 
+    brewname = 'python3'
+    if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
+    util.install_app(brewname, passw,
+                      cask=False,
+                    #   ext_verbose=True,
+                     )
+
+# Description:
+# Uninstalls Python3
+def UninstallPython3(passw):
+    print("Uninstalling Python3...")
+
+    brewname = 'python3'    
+    package_dir_name = 'python'
+    install_dir = ''
+    
+    # HACK: Brew does not return the correct directory, so
+    # we use the default one.
+    # This will fail if python is not installed in the default dir
+    install_dir = os.path.join(util.BREW_PKG_DEFAULT_DIR, package_dir_name)
+
+    pkg_names = list(set(util.get_symlinks(
+                util.PKG_SYMLINK_DIRS,
+                [util.get_file_with_parents(install_dir, 1)],
+                # basename=False
+            )))
+    additional_dirs = [
+        install_dir
+	]
+    util.remove_app(pkg_names, passw,
+	 				 misc_files_and_dirs=additional_dirs,
+					 brewname=brewname,
+                     std_dirs=util.PKG_SYMLINK_DIRS,
+                     cask=False,
+	#				 debug=True,
+	#				 nobrew=True,
+	#      			 ext_verbose=True,
+    )
+    
 if __name__ == '__main__':
     sys.exit('Please import this script into "macOS-Initial-Setup-Script.py" and use it from there')
