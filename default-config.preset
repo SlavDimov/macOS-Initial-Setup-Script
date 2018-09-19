@@ -23,14 +23,20 @@ DockMagnificationOn                     # DockMagnificationOff
 DockMagnificationSizeSmall              # DockMagnificationSizeStock
 # DockPositionLeft                      # DockPositionRight                   # DockPositionBottom
 # DockWindowEffectScale                 # DockWindowEffectGenie
+DockMinimizeWindowToAppIconOn           # DockMinimizeWindowToAppIconOff
+DockAnimateOpeningAppOn                 # DockAnimateOpeningAppOff
+# DockAutoHideOn                        # DockAutoHideOff
+# DockHideAppIndicators                 # DockShowAppIndicators
 DockRestart
 
 ## System UI Tweaks
 # SystemDarkMenuAndDock                 # SystemLightMenuAndDock
-# SystemAutoHideMenuBar                 # SystemNoHideMenuBar
+# SystemAutoHideMenuBarOn               # SystemAutoHideMenuBarOff
 # SystemAppearanceGraphite              # SystemAppearanceBlue
 SystemSidebarIconsSmall                 # SystemSidebarIconsMedium            # SystemSidebarIconsLarge
 # SystemShowScrollbarWhenScrolling      # SystemShowScrollbarAutomatic        # SystemShowScrollbarAlways
 SystemClickScrollbarClickedSpot         # SystemClickScrollbarNextPage
 SystemAskToKeepChanges                  # SystemDontAskToKeepChanges
 # SystemDontCloseWindowsOnAppQuit       # SystemCloseWindowsOnAppQuit
+# SystemPreferTabsAlways                # SystemPreferTabsFullscreen          # SystemPreferTabsManual
+# SystemDoubleClickOnTitleBarOff        # SystemDoubleClickOnTitleBarZoom     # SystemDoubleClickOnTitleBarMinimize

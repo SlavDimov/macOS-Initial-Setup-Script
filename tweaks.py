@@ -119,6 +119,54 @@ def DockWindowEffectGenie(passw):
     util.ext_call([['defaults', 'write', 'com.apple.dock', 'mineffect', 'genie']])
 
 # Description:
+# This tweak will turn on Dock's minimize window to app icon feature
+def DockMinimizeWindowToAppIconOn(passw):
+    print('Setting Dock\'s Minimize windows to app icon...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'minimize-to-application', '-int', '1']])
+
+# Description:
+# This tweak will turn off Dock's minimize window to app icon feature
+def DockMinimizeWindowToAppIconOff(passw):
+    print('Unsetting Dock\'s Minimize windows to app icon...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'minimize-to-application', '-int', '0']])
+
+# Description:
+# This tweak will turn on Dock's animate opening applications feature
+def DockAnimateOpeningAppOn(passw):
+    print('Setting Dock\'s Animate opening applicaitions...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'launchanim', '-int', '1']])
+
+# Description:
+# This tweak will turn off Dock's animate opening applications feature
+def DockAnimateOpeningAppOff(passw):
+    print('Unsetting Dock\'s Animate opening applicaitions...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'launchanim', '-int', '0']])
+
+# Description:
+# This tweak will turn on Dock's autohide feature
+def DockAutoHideOn(passw):
+    print('Setting Dock to autohide...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'autohide', '-int', '1']])
+
+# Description:
+# This tweak will turn off Dock's autohide feature
+def DockAutoHideOff(passw):
+    print('Setting Dock to not autohide...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'autohide', '-int', '0']])
+
+# Description:
+# This tweak will turn on Dock's Show open applications indicators feature
+def DockShowAppIndicators(passw):
+    print('Setting Dock to show open app indicators...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'show-process-indicators', '-int', '1']])
+
+# Description:
+# This tweak will turn off Dock's Show open applications indicators feature
+def DockHideAppIndicators(passw):
+    print('Setting Dock to hide open app indicators...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'show-process-indicators', '-int', '0']])
+
+# Description:
 # Restarts Dock (this allows settings to be applied)
 def DockRestart(passw):
     print('Restarting Dock...')
@@ -138,13 +186,13 @@ def SystemLightMenuAndDock(passw):
 
 # Description:
 # This tweak will start automatically hiding the menu bar
-def SystemAutoHideMenuBar(passw):
+def SystemAutoHideMenuBarOn(passw):
     print('Switching Menu bar to auto hiding...')
     util.ext_call([['defaults', 'write', 'NSGlobalDomain', '_HIHideMenuBar', '-int', '1']])
 
 # Description:
 # This tweak will stop automatically hiding the menu bar
-def SystemNoHideMenuBar(passw):
+def SystemAutoHideMenuBarOff(passw):
     print('Switching Menu bar to static position...')
     util.ext_call([['defaults', 'write', 'NSGlobalDomain', '_HIHideMenuBar', '-int', '0']])
 
@@ -214,13 +262,6 @@ def SystemClickScrollbarClickedSpot(passw):
     util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleScrollerPagingBehavior', '-int', '1']])
 
 # Description:
-# This tweak will change the behavioiur of the scroll bars to
-# jump to to the desired spot when clicked
-def SystemClickScrollbarClickedSpot(passw):
-    print('Changing Scroll Bar behaviour to jump to the spot that\'s clicked...')
-    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleScrollerPagingBehavior', '-int', '1']])
-
-# Description:
 # This tweak will make macOS ask to keep changes
 # in a document when closing it.
 def SystemAskToKeepChanges(passw):
@@ -249,8 +290,41 @@ def SystemDontCloseWindowsOnAppQuit(passw):
     print('Unsetting \'Close windows when quitting an app\'...')
     util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'NSQuitAlwaysKeepsWindows', '-int', '1']])
 
+# Description:
+# This tweak will set Dock's Prefer Tabs when opening windows to Always
+def SystemPreferTabsAlways(passw):
+    print('Setting Prefer Tabs to Always...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleWindowTabbingMode', 'always']])
 
+# Description:
+# This tweak will set Dock's Prefer Tabs when opening windows to Fullscreen
+def SystemPreferTabsFullscreen(passw):
+    print('Setting Prefer Tabs to Fullscreen...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleWindowTabbingMode', 'fullscreen']])
 
-    
+# Description:
+# This tweak will set Dock's Prefer Tabs when opening windows to Manual
+def SystemPreferTabsManual(passw):
+    print('Setting Prefer Tabs to Manual...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleWindowTabbingMode', 'manual']])
+
+# Description:
+# This tweak will turn off Double-Click on window title bar
+def SystemDoubleClickOnTitleBarOff(passw):
+    print('Unsetting Double-Click on title bar...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleActionOnDoubleClick', 'None']])
+
+# Description:
+# This tweak will set Double-Click on window title bar action to Zoom
+def SystemDoubleClickOnTitleBarZoom(passw):
+    print('Setting Double-Click on title bar to Zoom...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleActionOnDoubleClick', 'Maximize']])
+
+# Description:
+# This tweak will set Double-Click on window title bar action to Minimize
+def SystemDoubleClickOnTitleBarMinimize(passw):
+    print('Setting Double-Click on title bar to Minimize...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleActionOnDoubleClick', 'Minimize']])
+
 if __name__ == '__main__':
     sys.exit('Please import this script into "macOS-Initial-Setup-Script.py" and use it from there')
