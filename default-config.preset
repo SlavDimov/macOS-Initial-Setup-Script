@@ -19,25 +19,29 @@ FinderRestart
 
 ## Dock Tweaks
 # DockShowOnlyActiveApp                 # DockShowAllActiveApps
-DockSizeSmaller                         # DockSizeStock                       # DockSizeBigger
+DockSizeSmaller                         # DockSizeStock                         # DockSizeBigger
 DockMagnificationOn                     # DockMagnificationOff
 DockMagnificationSizeSmall              # DockMagnificationSizeStock
-# DockPositionLeft                      # DockPositionRight                   # DockPositionBottom
+# DockPositionLeft                      # DockPositionRight                     # DockPositionBottom
 # DockWindowEffectScale                 # DockWindowEffectGenie
 DockMinimizeWindowToAppIconOn           # DockMinimizeWindowToAppIconOff
 DockAnimateOpeningAppOn                 # DockAnimateOpeningAppOff
 # DockAutoHideOn                        # DockAutoHideOff
 # DockHideAppIndicators                 # DockShowAppIndicators
+DockRearrangeSpacesByMostRecentOff      # DockRearrangeSpacesByMostRecentOn
+DockGroupWindowsByApplicationOn         # DockGroupWindowsByApplicationOff
 DockRestart
 
 ## System UI Tweaks
 # SystemDarkMenuAndDock                 # SystemLightMenuAndDock
 # SystemAutoHideMenuBarOn               # SystemAutoHideMenuBarOff
 # SystemAppearanceGraphite              # SystemAppearanceBlue
-SystemSidebarIconsSmall                 # SystemSidebarIconsMedium            # SystemSidebarIconsLarge
-# SystemShowScrollbarWhenScrolling      # SystemShowScrollbarAutomatic        # SystemShowScrollbarAlways
+SystemSidebarIconsSmall                 # SystemSidebarIconsMedium              # SystemSidebarIconsLarge
+# SystemShowScrollbarWhenScrolling      # SystemShowScrollbarAutomatic          # SystemShowScrollbarAlways
 SystemClickScrollbarClickedSpot         # SystemClickScrollbarNextPage
 SystemAskToKeepChanges                  # SystemDontAskToKeepChanges
 # SystemDontCloseWindowsOnAppQuit       # SystemCloseWindowsOnAppQuit
-# SystemPreferTabsAlways                # SystemPreferTabsFullscreen          # SystemPreferTabsManual
-# SystemDoubleClickOnTitleBarOff        # SystemDoubleClickOnTitleBarZoom     # SystemDoubleClickOnTitleBarMinimize
+# SystemPreferTabsAlways                # SystemPreferTabsFullscreen            # SystemPreferTabsManual
+# SystemDoubleClickOnTitleBarOff        # SystemDoubleClickOnTitleBarZoom       # SystemDoubleClickOnTitleBarMinimize
+# SystemSpacesSwitchOnActivateOff       # SystemSpacesSwitchOnActivateOn
+SystemDisplaysToSeparateSpacesOn        # SystemDisplaysToSeparateSpacesOff

@@ -19,7 +19,7 @@ def InstallGolang(passw):
     # adding enviroment variables to .bash_profile
     install_dir = util.ext_call([['brew', '--prefix', brewname]],
                                 getstdout=True).strip(' \t\n')
-
+                                
     util.add_env_var({'GOPATH':['${HOME}', '.go']})
     util.add_env_var({'GOROOT':[install_dir, 'libexec']},
                      force=True
@@ -42,15 +42,15 @@ def UninstallGolang(passw):
     else:
         install_dir = os.path.join(util.BREW_PKG_DEFAULT_DIR, brewname)
     
-	pkg_names = list(set(util.get_symlinks(
+    pkg_names = list(set(util.get_symlinks(
                 util.PKG_SYMLINK_DIRS,
                 [util.get_file_with_parents(install_dir, 1)],
                 # basename=False
             )))
-	additional_dirs = [
+    additional_dirs = [
         install_dir
 	]
-	util.remove_app(pkg_names, passw,
+    util.remove_app(pkg_names, passw,
 	 				 misc_files_and_dirs=additional_dirs,
 					 brewname=brewname,
                      std_dirs=util.PKG_SYMLINK_DIRS,

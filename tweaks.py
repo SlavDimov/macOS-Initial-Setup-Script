@@ -167,6 +167,30 @@ def DockHideAppIndicators(passw):
     util.ext_call([['defaults', 'write', 'com.apple.dock', 'show-process-indicators', '-int', '0']])
 
 # Description:
+# This tweak will make macOS rearrange your spaces based on most recent use.
+def DockRearrangeSpacesByMostRecentOn(passw):
+    print('Setting Auto rearrange spaces by most recent...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'mru-spaces', '-int', '1']])
+
+# Description:
+# This tweak will stop macOS rearranging your spaces based on most recent use.
+def DockRearrangeSpacesByMostRecentOff(passw):
+    print('Unsetting Auto rearrange spaces by most recent...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'mru-spaces', '-int', '0']])
+
+# Description:
+# This tweak will turn on Dock's grouping of windows by application
+def DockGroupWindowsByApplicationOn(passw):
+    print('Setting Dock\' group windows by application...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'expose-group-apps', '-int', '1']])
+
+# Description:
+# This tweak will turn off Dock's grouping of windows by application
+def DockGroupWindowsByApplicationOff(passw):
+    print('Unsetting Dock\' group windows by application...')
+    util.ext_call([['defaults', 'write', 'com.apple.dock', 'expose-group-apps', '-int', '0']])
+
+# Description:
 # Restarts Dock (this allows settings to be applied)
 def DockRestart(passw):
     print('Restarting Dock...')
@@ -325,6 +349,48 @@ def SystemDoubleClickOnTitleBarZoom(passw):
 def SystemDoubleClickOnTitleBarMinimize(passw):
     print('Setting Double-Click on title bar to Minimize...')
     util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleActionOnDoubleClick', 'Minimize']])
+
+# Description:
+# This tweak will make macOS switch to the space of the app when you click on it
+def SystemSpacesSwitchOnActivateOn(passw):
+    print('Setting switch space on activating app...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleSpacesSwitchOnActivate', '-int', '1']])
+
+# Description:
+# This tweak will make macOS stop switching spaces when you click on an app
+def SystemSpacesSwitchOnActivateOff(passw):
+    print('Unsetting switch space on activating app...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleSpacesSwitchOnActivate', '-int', '0']])
+
+# Description:
+# This tweak will make macOS divide displays into spaces
+def SystemDisplaysToSeparateSpacesOn(passw):
+    print('Setting displays to separate spaces...')
+    util.ext_call([['defaults', 'write', 'com.apple.spaces', 'spans-displays', '-int', '1']])
+
+# Description:
+# This tweak will make macOS stop dividing displays into spaces
+def SystemDisplaysToSeparateSpacesOff(passw):
+    print('Unsetting displays to separate spaces...')
+    util.ext_call([['defaults', 'write', 'com.apple.spaces', 'spans-displays', '-int', '0']])
+
+# Description:
+# This tweak will turn off macOS's dashboard
+def DashboardOff(passw):
+    print('Turning off Dashboard...')
+    util.ext_call([['defaults', 'write', 'com.apple.dashboard', 'dashboard-enabled-state', '-int', '1']])
+
+# Description:
+# This tweak will set macOS's dashboard as a separate space
+def DashboardAsSpace(passw):
+    print('Setting Dashboard as a separate space...')
+    util.ext_call([['defaults', 'write', 'com.apple.dashboard', 'dashboard-enabled-state', '-int', '2']])
+
+# Description:
+# This tweak will set macOS's dashboard as overlay
+def DashboardAsOverlay(passw):
+    print('Setting Dashboard as overlay...')
+    util.ext_call([['defaults', 'write', 'com.apple.dashboard', 'dashboard-enabled-state', '-int', '3']])
 
 if __name__ == '__main__':
     sys.exit('Please import this script into "macOS-Initial-Setup-Script.py" and use it from there')

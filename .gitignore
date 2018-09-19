@@ -5,3 +5,4 @@ Icon
 ._*
 .vscode
 *.pyc
+__pycache__

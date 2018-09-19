@@ -496,7 +496,10 @@ def ext_call(cmd_list, getstdout=False, sudopass=None, verbose=False):
                 process = next_process
             
             stdout, _ = process.communicate()
-            if getstdout: return stdout
+            if getstdout: 
+                if sys.version_info >= (3,0):
+                    stdout = stdout.decode('utf-8')
+                return stdout
     try:
         DEVNULL.close()
     except:
