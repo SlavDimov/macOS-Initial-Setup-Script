@@ -559,5 +559,32 @@ def get_symlinks(dirs, targets, basename=True):
                         res.append(item)
     return res
     
+# Description:
+# Writes an array value in a plist to a given domain and key, using the defaults command
+def defaults_append_to_array(domain, key, value):
+    arr_contents = ext_call([['defaults', 'read', domain,
+                    key]], getstdout=True)
+    if not re.search(re.escape(value), arr_contents):
+        ext_call([['defaults', 'write', domain,
+                    key, '-array-add', value]])
+
+# Description:
+# Deletes an array value from a plist in given domain and key, using the defaults command
+def defaults_delete_from_array(domain, key, value):
+    arr_contents = ext_call([['defaults', 'read', domain,
+                    key]], getstdout=True)
+    if re.search('[\(\);]', arr_contents):
+        # if it is indeed an array
+        arr_contents = re.sub('[\n\(\);]', '', arr_contents)
+        arr_contents = re.sub(',\s+', ',', arr_contents)
+        arr_contents = arr_contents.strip(', ')
+        arr_contents = arr_contents.split(',')
+        arr_contents.remove(value)
+        cmd_arr = ['defaults', 'write', domain,
+                        key, '-array']
+        for item in arr_contents: cmd_arr.append(item)
+        ext_call([['defaults', 'delete', domain, key]])
+        ext_call([cmd_arr])
+
 if __name__ == '__main__':
     sys.exit('Please do not call this script directly. It is called by the other mods when needed...')

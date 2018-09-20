@@ -191,6 +191,24 @@ def DockGroupWindowsByApplicationOff(passw):
     util.ext_call([['defaults', 'write', 'com.apple.dock', 'expose-group-apps', '-int', '0']])
 
 # Description:
+# This tweak will turn off macOS's dashboard
+def DockDashboardOff(passw):
+    print('Turning off Dashboard...')
+    util.ext_call([['defaults', 'write', 'com.apple.dashboard', 'dashboard-enabled-state', '-int', '1']])
+
+# Description:
+# This tweak will set macOS's dashboard as a separate space
+def DockDashboardAsSpace(passw):
+    print('Setting Dashboard as a separate space...')
+    util.ext_call([['defaults', 'write', 'com.apple.dashboard', 'dashboard-enabled-state', '-int', '2']])
+
+# Description:
+# This tweak will set macOS's dashboard as overlay
+def DockDashboardAsOverlay(passw):
+    print('Setting Dashboard as overlay...')
+    util.ext_call([['defaults', 'write', 'com.apple.dashboard', 'dashboard-enabled-state', '-int', '3']])
+
+# Description:
 # Restarts Dock (this allows settings to be applied)
 def DockRestart(passw):
     print('Restarting Dock...')
@@ -375,22 +393,44 @@ def SystemDisplaysToSeparateSpacesOff(passw):
     util.ext_call([['defaults', 'write', 'com.apple.spaces', 'spans-displays', '-int', '0']])
 
 # Description:
-# This tweak will turn off macOS's dashboard
-def DashboardOff(passw):
-    print('Turning off Dashboard...')
-    util.ext_call([['defaults', 'write', 'com.apple.dashboard', 'dashboard-enabled-state', '-int', '1']])
+# This tweak will change the temperature units to Celsius
+def SystemTempUnitCelsius(passw):
+    print('Switching temperature units to Celsius...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleTemperatureUnit', 'Celsius']])
 
 # Description:
-# This tweak will set macOS's dashboard as a separate space
-def DashboardAsSpace(passw):
-    print('Setting Dashboard as a separate space...')
-    util.ext_call([['defaults', 'write', 'com.apple.dashboard', 'dashboard-enabled-state', '-int', '2']])
+# This tweak will change the temperature units to Fahrenheit
+def SystemTempUnitFahrenheit(passw):
+    print('Switching temperature units to Fahrenheit...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleTemperatureUnit', 'Fahrenheit']])
 
 # Description:
-# This tweak will set macOS's dashboard as overlay
-def DashboardAsOverlay(passw):
-    print('Setting Dashboard as overlay...')
-    util.ext_call([['defaults', 'write', 'com.apple.dashboard', 'dashboard-enabled-state', '-int', '3']])
+# This tweak will show the battery status indicator in the Menu bar
+def SystemUIShowBatteryStatus(passw):
+    print('Showing battery status indicator...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.battery', '-int', '1']])
+
+    util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/Battery.menu"')
+
+# Description:
+# This tweak will hide the battery status indicator in the Menu bar
+def SystemUIHideBatteryStatus(passw):
+    print('Hiding battery status indicator...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.battery', '-int', '0']])
+
+    util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/Battery.menu"')
+
+# Description:
+# Restarts SystemUIServer (this allows settings to be applied)
+def SystemUIRestart(passw):
+    print('Restarting SystemUIServer...')
+    util.ext_call([['killall', 'SystemUIServer']])
+
+
 
 if __name__ == '__main__':
     sys.exit('Please import this script into "macOS-Initial-Setup-Script.py" and use it from there')

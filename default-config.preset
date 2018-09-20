@@ -30,9 +30,10 @@ DockAnimateOpeningAppOn                 # DockAnimateOpeningAppOff
 # DockHideAppIndicators                 # DockShowAppIndicators
 DockRearrangeSpacesByMostRecentOff      # DockRearrangeSpacesByMostRecentOn
 DockGroupWindowsByApplicationOn         # DockGroupWindowsByApplicationOff
+DockDashboardOff                        # DockDashboardAsSpace                  # DockDashboardAsOverlay
 DockRestart
 
-## System UI Tweaks
+## System Tweaks
 # SystemDarkMenuAndDock                 # SystemLightMenuAndDock
 # SystemAutoHideMenuBarOn               # SystemAutoHideMenuBarOff
 # SystemAppearanceGraphite              # SystemAppearanceBlue
@@ -45,3 +46,8 @@ SystemAskToKeepChanges                  # SystemDontAskToKeepChanges
 # SystemDoubleClickOnTitleBarOff        # SystemDoubleClickOnTitleBarZoom       # SystemDoubleClickOnTitleBarMinimize
 # SystemSpacesSwitchOnActivateOff       # SystemSpacesSwitchOnActivateOn
 SystemDisplaysToSeparateSpacesOn        # SystemDisplaysToSeparateSpacesOff
+SystemTempUnitCelsius                   # SystemTempUnitFahrenheit
+
+## System UI Tweaks
+# SystemUIShowBatteryStatus             # SystemUIHideBatteryStatus
+# SystemUIRestart
