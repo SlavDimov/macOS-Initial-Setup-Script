@@ -34,8 +34,11 @@ DockDashboardOff                        # DockDashboardAsSpace                  
 DockRestart
 
 ## System UI Tweaks
-# SystemUIShowBatteryStatus             # SystemUIHideBatteryStatus
+# SystemUIShowBatteryStatusIndicator    # SystemUIHideBatteryStatusIndicator
 SystemUIShowBatteryPercentage           # SystemUIHideBatteryPercentage
+SystemUIShowVolumeIndicator             # SystemUIHideVolumeIndicator
+# SystemUIShowWifiStatusIndicator       # SystemUIHideWifiStatusIndicator
+# SystemUIShowBluetoothStatusIndicator  # SystemUIHideBluetoothStatusIndicator
 # SystemUIRestart
 
 ## System Tweaks

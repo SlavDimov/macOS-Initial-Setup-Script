@@ -474,7 +474,7 @@ def SystemScrollDirectionReversed(passw):
 
 # Description:
 # This tweak will show the battery status indicator in the Menu bar
-def SystemUIShowBatteryStatus(passw):
+def SystemUIShowBatteryStatusIndicator(passw):
     print('Showing battery status indicator...')          
     util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
                     'NSStatusItem Visible com.apple.menuextra.battery', '-int', '1']])
@@ -484,7 +484,7 @@ def SystemUIShowBatteryStatus(passw):
 
 # Description:
 # This tweak will hide the battery status indicator in the Menu bar
-def SystemUIHideBatteryStatus(passw):
+def SystemUIHideBatteryStatusIndicator(passw):
     print('Hiding battery status indicator...')          
     util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
                     'NSStatusItem Visible com.apple.menuextra.battery', '-int', '0']])
@@ -503,6 +503,66 @@ def SystemUIShowBatteryPercentage(passw):
 def SystemUIHideBatteryPercentage(passw):
     print('Hiding battery percentage indicator...')          
     util.ext_call([['defaults', 'write', 'com.apple.menuextra.battery', 'ShowPercent', 'NO']])
+
+# Description:
+# This tweak will show the volume indicator in the Menu bar
+def SystemUIShowVolumeIndicator(passw):
+    print('Showing volume indicator...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.volume', '-int', '1']])
+
+    util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/Volume.menu"')
+
+# Description:
+# This tweak will hide the volume indicator in the Menu bar
+def SystemUIHideVolumeIndicator(passw):
+    print('Hiding volume indicator...')                     
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.volume', '-int', '0']])
+
+    util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/Volume.menu"')
+
+# Description:
+# This tweak will show the Wi-Fi status indicator in the Menu bar
+def SystemUIShowWifiStatusIndicator(passw):
+    print('Showing Wi-Fi status indicator...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.airport', '-int', '1']])
+
+    util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/AirPort.menu"')
+
+# Description:
+# This tweak will hide the Wi-Fi status indicator in the Menu bar
+def SystemUIHideWifiStatusIndicator(passw):
+    print('Hiding Wi-Fi status indicator...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.airport', '-int', '0']])
+
+    util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/AirPort.menu"')
+
+# Description:
+# This tweak will show the Bluetooth status indicator in the Menu bar
+def SystemUIShowBluetoothStatusIndicator(passw):
+    print('Showing Bluetooth status indicator...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.bluetooth', '-int', '1']])
+
+    util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/Bluetooth.menu"')
+
+# Description:
+# This tweak will hide the Bluetooth status indicator in the Menu bar
+def SystemUIHideBluetoothStatusIndicator(passw):
+    print('Hiding Bluetooth status indicator...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.bluetooth', '-int', '0']])
+
+    util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/Bluetooth.menu"')
 
 # Description:
 # Restarts SystemUIServer (this allows settings to be applied)
