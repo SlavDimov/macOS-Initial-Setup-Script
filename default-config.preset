@@ -33,6 +33,11 @@ DockGroupWindowsByApplicationOn         # DockGroupWindowsByApplicationOff
 DockDashboardOff                        # DockDashboardAsSpace                  # DockDashboardAsOverlay
 DockRestart
 
+## System UI Tweaks
+# SystemUIShowBatteryStatus             # SystemUIHideBatteryStatus
+SystemUIShowBatteryPercentage           # SystemUIHideBatteryPercentage
+# SystemUIRestart
+
 ## System Tweaks
 # SystemDarkMenuAndDock                 # SystemLightMenuAndDock
 # SystemAutoHideMenuBarOn               # SystemAutoHideMenuBarOff
@@ -47,7 +52,9 @@ SystemAskToKeepChanges                  # SystemDontAskToKeepChanges
 # SystemSpacesSwitchOnActivateOff       # SystemSpacesSwitchOnActivateOn
 SystemDisplaysToSeparateSpacesOn        # SystemDisplaysToSeparateSpacesOff
 SystemTempUnitCelsius                   # SystemTempUnitFahrenheit
+# SystemFnKeysDefault                   # SystemFnKeysMedia
+SystemKeyRepeatFast                     # SystemKeyRepeatNormal
+SystemTapToClickOn                      # SystemTapToClickOff
+SystemSilentClickOn                     # SystemSilentClickOff
+SystemScrollDirectionNatural            # SystemScrollDirectionReversed
 
-## System UI Tweaks
-# SystemUIShowBatteryStatus             # SystemUIHideBatteryStatus
-# SystemUIRestart

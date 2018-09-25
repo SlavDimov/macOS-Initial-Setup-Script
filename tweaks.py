@@ -405,6 +405,74 @@ def SystemTempUnitFahrenheit(passw):
     util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'AppleTemperatureUnit', 'Fahrenheit']])
 
 # Description:
+# This tweak change the behaviour of the function keys
+# to standard function keys.
+# To use the special features on this keys press Fn
+def SystemFnKeysDefault(passw):
+    print('Switching Function keys behaviour to default function keys...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'com.apple.keyboard.fnState', '-int', '1']])
+
+# Description:
+# This tweak change the behaviour of the function keys
+# to function as media, brightness etc. keys.
+# To use the standard function keys press Fn
+def SystemFnKeysMedia(passw):
+    print('Switching Function keys behaviour to media keys...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'com.apple.keyboard.fnState', '-int', '0']])
+
+# Description:
+# This tweak set the key repeat speed to normal
+def SystemKeyRepeatNormal(passw):
+    print('Setting the key repeat speed to normal...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'InitialKeyRepeat', '-int', '15']])
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'KeyRepeat', '-int', '6']])
+
+# Description:
+# This tweak set the key repeat speed to fast
+def SystemKeyRepeatFast(passw):
+    print('Setting the key repeat speed to fast...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'InitialKeyRepeat', '-int', '15']])
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'KeyRepeat', '-int', '2']])
+
+# Description:
+# This tweak will allow tapping trackpad to make a click
+def SystemTapToClickOn(passw):
+    print('Enabling tap to click in trackpad...')
+    util.ext_call([['defaults', 'write', 'com.apple.AppleMultitouchTrackpad', 'Clicking', '-int', '1']])
+    util.ext_call([['defaults', 'write', 'com.apple.driver.AppleBluetoothMultitouch.trackpad', 'Clicking', '-int', '1']])
+
+# Description:
+# This tweak will not allow tapping trackpad to make a click
+def SystemTapToClickOff(passw):
+    print('Disabling tap to click in trackpad...')
+    util.ext_call([['defaults', 'write', 'com.apple.AppleMultitouchTrackpad', 'Clicking', '-int', '0']])
+    util.ext_call([['defaults', 'write', 'com.apple.driver.AppleBluetoothMultitouch.trackpad', 'Clicking', '-int', '0']])
+
+# Description:
+# This tweak will disable the "click" sound when clicking on the trackpad
+def SystemSilentClickOn(passw):
+    print('Enabling silent click in trackpad...')
+    util.ext_call([['defaults', 'write', 'com.apple.AppleMultitouchTrackpad', 'ActuationStrength', '-int', '0']])
+
+# Description:
+# This tweak enable the "click" sound when clicking on the trackpad
+def SystemSilentClickOff(passw):
+    print('Disabling silent click in trackpad...')
+    util.ext_call([['defaults', 'write', 'com.apple.AppleMultitouchTrackpad', 'ActuationStrength', '-int', '1']])
+
+# Description:
+# This tweak set the scrolling direction to natural
+def SystemScrollDirectionNatural(passw):
+    print('Setting scrolling direction to natural...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'com.apple.swipescrolldirection', '-int', '1']])
+
+# Description:
+# This tweak set the scrolling direction to reversed
+def SystemScrollDirectionReversed(passw):
+    print('Setting scrolling direction to reversed...')
+    util.ext_call([['defaults', 'write', 'NSGlobalDomain', 'com.apple.swipescrolldirection', '-int', '0']])
+
+# Description:
 # This tweak will show the battery status indicator in the Menu bar
 def SystemUIShowBatteryStatus(passw):
     print('Showing battery status indicator...')          
@@ -423,6 +491,18 @@ def SystemUIHideBatteryStatus(passw):
 
     util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
                                '"/System/Library/CoreServices/Menu Extras/Battery.menu"')
+
+# Description:
+# This tweak will show the battery percentage indicator in the Menu bar
+def SystemUIShowBatteryPercentage(passw):
+    print('Showing battery percentage indicator...')          
+    util.ext_call([['defaults', 'write', 'com.apple.menuextra.battery', 'ShowPercent', 'YES']])
+
+# Description:
+# This tweak will hide the battery percentage indicator in the Menu bar
+def SystemUIHideBatteryPercentage(passw):
+    print('Hiding battery percentage indicator...')          
+    util.ext_call([['defaults', 'write', 'com.apple.menuextra.battery', 'ShowPercent', 'NO']])
 
 # Description:
 # Restarts SystemUIServer (this allows settings to be applied)
