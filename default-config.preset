@@ -39,7 +39,11 @@ SystemUIShowBatteryPercentage           # SystemUIHideBatteryPercentage
 SystemUIShowVolumeIndicator             # SystemUIHideVolumeIndicator
 # SystemUIShowWifiStatusIndicator       # SystemUIHideWifiStatusIndicator
 # SystemUIShowBluetoothStatusIndicator  # SystemUIHideBluetoothStatusIndicator
-# SystemUIRestart
+SystemUIHideSiri                        # SystemUIShowSiri
+# SystemUIHideClock                     # SystemUIShowClock
+# SystemUIClockAnalog                   # SystemUIClockDigital
+# SystemUIClockFlashTimeSeparatorsOn    # SystemUIClockFlashTimeSeparatorsOff
+SystemUIRestart
 
 ## System Tweaks
 # SystemDarkMenuAndDock                 # SystemLightMenuAndDock

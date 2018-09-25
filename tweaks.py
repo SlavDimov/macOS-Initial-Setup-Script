@@ -565,6 +565,70 @@ def SystemUIHideBluetoothStatusIndicator(passw):
                                '"/System/Library/CoreServices/Menu Extras/Bluetooth.menu"')
 
 # Description:
+# This tweak will show the Siri icon in the Menu bar
+def SystemUIShowSiri(passw):
+    print('Showing Siri in Menu bar...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible Siri', '-int', '1']])
+
+    util.ext_call([['defaults', 'write', 'com.apple.Siri',
+                    'StatusMenuVisible', '-int', '1']])
+
+# Description:
+# This tweak will hide the Siri icon from the Menu bar
+def SystemUIHideSiri(passw):
+    print('Hiding Siri from Menu bar...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible Siri', '-int', '0']])
+
+    util.ext_call([['defaults', 'write', 'com.apple.Siri',
+                    'StatusMenuVisible', '-int', '0']])
+
+# Description:
+# This tweak will show the Clock in the Menu bar
+def SystemUIShowClock(passw):
+    print('Showing the Clock in Menu bar...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.clock', '-int', '1']])
+
+    util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/Clock.menu"')
+
+# Description:
+# This tweak will hide the Clock from the Menu bar
+def SystemUIHideClock(passw):
+    print('Hiding the Clock from Menu bar...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.clock', '-int', '0']])
+
+    util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/Clock.menu"')
+
+# Description:
+# This tweak will change the Clock in Menu bar to analog
+def SystemUIClockAnalog(passw):
+    print('Setting Clock in Menu bar to analog...')          
+    util.ext_call([['defaults', 'write', 'com.apple.menuextra.clock', 'IsAnalog', '-int', '1']])
+
+# Description:
+# This tweak will change the Clock in Menu bar to digital
+def SystemUIClockDigital(passw):
+    print('Setting Clock in Menu bar to digital...')          
+    util.ext_call([['defaults', 'write', 'com.apple.menuextra.clock', 'IsAnalog', '-int', '0']])
+
+# Description:
+# This tweak will start flashing the Clock time separators
+def SystemUIClockFlashTimeSeparatorsOn(passw):
+    print('Enabling the flashing of the Clock time separators...')          
+    util.ext_call([['defaults', 'write', 'com.apple.menuextra.clock', 'FlashDateSeparators', '-int', '1']])
+
+# Description:
+# This tweak will stop flashing the Clock time separators
+def SystemUIClockFlashTimeSeparatorsOff(passw):
+    print('Disabling the flashing of the Clock time separators...')          
+    util.ext_call([['defaults', 'write', 'com.apple.menuextra.clock', 'FlashDateSeparators', '-int', '0']])
+
+# Description:
 # Restarts SystemUIServer (this allows settings to be applied)
 def SystemUIRestart(passw):
     print('Restarting SystemUIServer...')
