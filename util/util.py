@@ -562,6 +562,7 @@ def get_symlinks(dirs, targets, basename=True):
 # Description:
 # Writes an array value in a plist to a given domain and key, using the defaults command
 def defaults_append_to_array(domain, key, value):
+    value = '"%s"' % value.strip('"')
     arr_contents = ext_call([['defaults', 'read', domain,
                     key]], getstdout=True)
     if not re.search(re.escape(value), arr_contents):
@@ -571,6 +572,7 @@ def defaults_append_to_array(domain, key, value):
 # Description:
 # Deletes an array value from a plist in given domain and key, using the defaults command
 def defaults_delete_from_array(domain, key, value):
+    value = '"%s"' % value.strip('"')
     arr_contents = ext_call([['defaults', 'read', domain,
                     key]], getstdout=True)
     if re.search('[\(\);]', arr_contents):

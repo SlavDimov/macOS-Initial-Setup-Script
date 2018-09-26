@@ -480,7 +480,7 @@ def SystemUIShowBatteryStatusIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.battery', '-int', '1']])
 
     util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/Battery.menu"')
+                               '/System/Library/CoreServices/Menu Extras/Battery.menu')
 
 # Description:
 # This tweak will hide the battery status indicator in the Menu bar
@@ -490,7 +490,7 @@ def SystemUIHideBatteryStatusIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.battery', '-int', '0']])
 
     util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/Battery.menu"')
+                               '/System/Library/CoreServices/Menu Extras/Battery.menu')
 
 # Description:
 # This tweak will show the battery percentage indicator in the Menu bar
@@ -512,7 +512,7 @@ def SystemUIShowVolumeIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.volume', '-int', '1']])
 
     util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/Volume.menu"')
+                               '/System/Library/CoreServices/Menu Extras/Volume.menu')
 
 # Description:
 # This tweak will hide the volume indicator in the Menu bar
@@ -522,7 +522,7 @@ def SystemUIHideVolumeIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.volume', '-int', '0']])
 
     util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/Volume.menu"')
+                               '/System/Library/CoreServices/Menu Extras/Volume.menu')
 
 # Description:
 # This tweak will show the Wi-Fi status indicator in the Menu bar
@@ -532,7 +532,7 @@ def SystemUIShowWifiStatusIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.airport', '-int', '1']])
 
     util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/AirPort.menu"')
+                               '/System/Library/CoreServices/Menu Extras/AirPort.menu')
 
 # Description:
 # This tweak will hide the Wi-Fi status indicator in the Menu bar
@@ -542,7 +542,7 @@ def SystemUIHideWifiStatusIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.airport', '-int', '0']])
 
     util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/AirPort.menu"')
+                               '/System/Library/CoreServices/Menu Extras/AirPort.menu')
 
 # Description:
 # This tweak will show the Bluetooth status indicator in the Menu bar
@@ -552,7 +552,7 @@ def SystemUIShowBluetoothStatusIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.bluetooth', '-int', '1']])
 
     util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/Bluetooth.menu"')
+                               '/System/Library/CoreServices/Menu Extras/Bluetooth.menu')
 
 # Description:
 # This tweak will hide the Bluetooth status indicator in the Menu bar
@@ -562,7 +562,7 @@ def SystemUIHideBluetoothStatusIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.bluetooth', '-int', '0']])
 
     util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/Bluetooth.menu"')
+                               '/System/Library/CoreServices/Menu Extras/Bluetooth.menu')
 
 # Description:
 # This tweak will show the Siri icon in the Menu bar
@@ -592,7 +592,7 @@ def SystemUIShowClock(passw):
                     'NSStatusItem Visible com.apple.menuextra.clock', '-int', '1']])
 
     util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/Clock.menu"')
+                               '/System/Library/CoreServices/Menu Extras/Clock.menu')
 
 # Description:
 # This tweak will hide the Clock from the Menu bar
@@ -602,7 +602,7 @@ def SystemUIHideClock(passw):
                     'NSStatusItem Visible com.apple.menuextra.clock', '-int', '0']])
 
     util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/Clock.menu"')
+                               '/System/Library/CoreServices/Menu Extras/Clock.menu')
 
 # Description:
 # This tweak will change the Clock in Menu bar to analog
@@ -636,7 +636,7 @@ def SystemUIShowAccessibilityIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.universalaccess', '-int', '1']])
 
     util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/UniversalAccess.menu"')
+                               '/System/Library/CoreServices/Menu Extras/UniversalAccess.menu')
 
 # Description:
 # This tweak will hide the Accessibility status indicator in the Menu bar
@@ -646,7 +646,7 @@ def SystemUIHideAccessibilityIndicator(passw):
                     'NSStatusItem Visible com.apple.menuextra.universalaccess', '-int', '0']])
 
     util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
-                               '"/System/Library/CoreServices/Menu Extras/UniversalAccess.menu"')
+                               '/System/Library/CoreServices/Menu Extras/UniversalAccess.menu')
 
 # Description:
 # Restarts SystemUIServer (this allows settings to be applied)
