@@ -629,6 +629,26 @@ def SystemUIClockFlashTimeSeparatorsOff(passw):
     util.ext_call([['defaults', 'write', 'com.apple.menuextra.clock', 'FlashDateSeparators', '-int', '0']])
 
 # Description:
+# This tweak will show the Accessibility status indicator in the Menu bar
+def SystemUIShowAccessibilityIndicator(passw):
+    print('Showing the Accessibility status indicator in Menu bar...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.universalaccess', '-int', '1']])
+
+    util.defaults_append_to_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/UniversalAccess.menu"')
+
+# Description:
+# This tweak will hide the Accessibility status indicator in the Menu bar
+def SystemUIHideAccessibilityIndicator(passw):
+    print('Hiding the Accessibility status indicator in Menu bar...')          
+    util.ext_call([['defaults', 'write', 'com.apple.systemuiserver',
+                    'NSStatusItem Visible com.apple.menuextra.universalaccess', '-int', '0']])
+
+    util.defaults_delete_from_array('com.apple.systemuiserver', 'menuExtras',
+                               '"/System/Library/CoreServices/Menu Extras/UniversalAccess.menu"')
+
+# Description:
 # Restarts SystemUIServer (this allows settings to be applied)
 def SystemUIRestart(passw):
     print('Restarting SystemUIServer...')

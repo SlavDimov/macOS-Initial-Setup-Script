@@ -43,6 +43,7 @@ SystemUIHideSiri                        # SystemUIShowSiri
 # SystemUIHideClock                     # SystemUIShowClock
 # SystemUIClockAnalog                   # SystemUIClockDigital
 # SystemUIClockFlashTimeSeparatorsOn    # SystemUIClockFlashTimeSeparatorsOff
+# SystemUIShowAccessibilityIndicator    # SystemUIHideAccessibilityIndicator
 SystemUIRestart
 
 ## System Tweaks
