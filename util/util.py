@@ -25,35 +25,33 @@ APP_DIRS = [
 # exported in the file itself or in the system and
 # adds it if needed.
 # Parameters:
-#   values - a list of lists ( [[], [], ...]), with each inner
+#   values - lists ([], [], ...), with each
 #            list containing a set of strings forming a path
 #   force - Default - False. If set to true it will
 #           delete any already exported path from the PATH variable
 #           in .bash_profile that is the same as the one being added
 #           and it will append the new one(s) at the bottom.
 # Example:
-#   append_to_path([
-#                   ['${MYVAR}'],
-#                   ['${MYVAR}', 'with', 'extra', 'path'],
-#                   ['other', 'path']
-#                 ],
-#                 force=True/False)
+#   append_to_path(['${MYVAR}'],
+#                  ['${MYVAR}', 'with', 'extra', 'path'],
+#                  ['other', 'path'],
+#                  force=True/False)
 # Result:
 # In .bash_profile:
 #   ...
 #   export PATH="$PATH:${MYVAR}:${MYVAR}/with/extra/path:other/path"
 #   ...
-def append_to_path(values, force=False):
-    if not isinstance(values, list): raise TypeError('Provided var is not a list')
-    if len(values) == 0: raise ValueError('List is empty')
+def append_to_path(*values, **kwargs):
+    force = kwargs.pop('force', False)
+    if len(values) == 0: raise IndexError('At least one value must be provided')
     if not any(isinstance(i, list) for i in values): 
         raise TypeError('One or more elements of the provided list is not a list')
     if any(not i for i in values): 
         raise ValueError('One or more elements of the provided list is an empty list')
     if any(not isinstance(y, str) for x in values for y in x): 
-        raise TypeError('One or more of the nested lists elements is not a string')
+        raise TypeError('One or more of the lists elements is not a string')
     if any(not y for x in values for y in x): 
-        raise ValueError('One or more of the nested lists elements is an empty string')
+        raise ValueError('One or more of the lists elements is an empty string')
 
     file_contents = ''
     values_to_append = []
@@ -92,7 +90,7 @@ def append_to_path(values, force=False):
     if force and file_contents:
         values_to_remove = []
         for value in values_to_append: values_to_remove.append(value.split(os.sep))
-        file_contents = remove_from_path(values_to_remove, file_contents)
+        file_contents = remove_from_path(*values_to_remove, file_contents=file_contents)
 
     if values_to_append:
         file_contents += '\nexport PATH="$PATH'
@@ -107,7 +105,7 @@ def append_to_path(values, force=False):
 # Description:
 # Removes a path(s) from the PATH variable in .bash_profile.
 # Parameters:
-#   values - a list of lists ( [[], [], ...]), with each inner
+#   values - lists ([], [], ...), with each
 #            list containing a set of strings forming a path
 #   file_contents - Default None. If None .bash_profile
 #                   will be read to get it's contents and then
@@ -132,17 +130,17 @@ def append_to_path(values, force=False):
 #   ...
 #   export PATH="$PATH:Some/other/not/included/path"
 #   ...
-def remove_from_path(values, file_contents=None):
-    if not isinstance(values, list): raise TypeError('Provided var is not a list')
-    if len(values) == 0: raise ValueError('List is empty')
+def remove_from_path(*values, **kwargs):
+    file_contents = kwargs.pop('file_contents', None)
+    if len(values) == 0: raise IndexError('At least one value must be provided')
     if not any(isinstance(i, list) for i in values): 
         raise TypeError('One or more elements of the provided list is not a list')
     if any(not i for i in values): 
         raise ValueError('One or more elements of the provided list is an empty list')
     if any(not isinstance(y, str) for x in values for y in x): 
-        raise TypeError('One or more of the nested lists elements is not a string')
+        raise TypeError('One or more of the lists elements is not a string')
     if any(not y for x in values for y in x): 
-        raise ValueError('One or more of the nested lists elements is an empty string')
+        raise ValueError('One or more of the lists elements is an empty string')
     
     from_file = False
     if not file_contents:
@@ -230,11 +228,11 @@ def add_env_var(variables, force=False):
     if force and file_contents:
         vars_to_remove = []
         for key in vars_to_append: vars_to_remove.append(key)
-        file_contents = remove_env_var(vars_to_remove, file_contents)
+        file_contents = remove_env_var(*vars_to_remove, file_contents=file_contents)
 
     for var in vars_to_append:
         # not stripping it from (' \t\'"'), because those chars might actually
-        # be needed at some case it is the user's responcibility to type the
+        # be needed at some case it is the user's responsibility to type the
         # right value name
         value = vars_to_append[var]
         file_contents += '\nexport %s="%s"\n' % (var, value)
@@ -246,7 +244,7 @@ def add_env_var(variables, force=False):
 # Description:
 # Removes an enviroment variable(s) from .bash_profile
 # Parameters:
-#   variables - list of strings, containing the
+#   variables - strings, each containing an
 #               exported variable name
 #   file_contents - Default None. If None .bash_profile
 #                   will be read to get it's contents and then
@@ -257,7 +255,7 @@ def add_env_var(variables, force=False):
 #                   won't be changed.
 #
 # Example:
-#   remove_env_var(['MYVAR', 'MYOTHERVAR'],
+#   remove_env_var('MYVAR', 'MYOTHERVAR',
 #                  file_contents="..."/None)
 # Result:
 #   ...
@@ -269,9 +267,9 @@ def add_env_var(variables, force=False):
 #   ...
 #   export SOMEVAR="some/path"
 #   ...
-def remove_env_var(variables, file_contents=None):
-    if not isinstance(variables, list): raise TypeError('Provided var is not a list')
-    if len(variables) == 0: raise ValueError('List is empty')
+def remove_env_var(*variables, **kwargs):
+    file_contents = kwargs.pop('file_contents', None)
+    if len(variables) == 0: raise IndexError('At least one variable must be provided')
     if not any(isinstance(i, str) for i in variables): 
         raise TypeError('One or more elements of the provided list is not a string')
     if any(not i for i in variables): 
@@ -417,7 +415,7 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
 # Description:
 # It uses subprocess to make calls to bash commands.
 # Parameters:
-#   cmds - a list of lists ( [ [], [], ...] ) with all the commands (passed the
+#   cmds - lists ([], [], ...) with all the commands (passed the
 #       way 'subprocess.Popen()' expects them) that need to be executed.
 #       If more than one sublist(command) is present inside the main list it will be piped
 #       to the next command.
@@ -438,15 +436,15 @@ def ext_call(*cmds, **kwargs):
     getstdout = kwargs.pop('getstdout', False)
     sudopass  = kwargs.pop('sudopass', None)
     verbose   = kwargs.pop('verbose', False)
-    if len(cmds) == 0: raise ValueError('List is empty')
+    if len(cmds) == 0: raise IndexError('At least one command needs to be provided')
     if not any(isinstance(i, list) for i in cmds): 
         raise TypeError('One or more elements of the provided list is not a list')
     if any(not i for i in cmds): 
         raise ValueError('One or more elements of the provided list is an empty list')
     if any(not isinstance(y, str) for x in cmds for y in x): 
-        raise TypeError('One or more of the nested lists elements is not a string')
+        raise TypeError('One or more of the lists elements is not a string')
     if any(not y for x in cmds for y in x): 
-        raise ValueError('One or more of the nested lists elements is an empty string')
+        raise ValueError('One or more of the lists elements is an empty string')
     
     process = None
     next_process = None

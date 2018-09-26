@@ -24,8 +24,8 @@ def InstallGolang(passw):
     util.add_env_var({'GOROOT':[install_dir, 'libexec']},
                      force=True
                     )
-    util.append_to_path([['${GOPATH}','bin'],
-                         ['${GOROOT}','bin']],
+    util.append_to_path(['${GOPATH}','bin'],
+                        ['${GOROOT}','bin'],
                         force=True
                         ) 
 
@@ -63,11 +63,11 @@ def UninstallGolang(passw):
     # removing enviroment variables from .bash_profile
     # Deliberately not removing 'GOPATH' since it might
     # be changed to a custom path
-    util.remove_env_var(['GOROOT',
+    util.remove_env_var('GOROOT',
                         #  'GOPATH',
-                         ])
-    util.remove_from_path([['${GOPATH}','bin'],
-                         ['${GOROOT}','bin']]
+                        )
+    util.remove_from_path(['${GOROOT}','bin'],
+                          ['${GOPATH}','bin']
                         ) 
     
 

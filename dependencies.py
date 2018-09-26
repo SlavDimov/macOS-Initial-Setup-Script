@@ -15,7 +15,6 @@ def InstallXCodeCmdDevTools(passw):
 def UninstallXCodeCmdDevTools(passw):
     print('Uninstalling XCode Command Line Developer Tools...')
     util.ext_call(['rm','-rf','/Library/Developer/CommandLineTools'], sudopass=passw)
-
     
 # Description:
 # This function will install Homebrew
