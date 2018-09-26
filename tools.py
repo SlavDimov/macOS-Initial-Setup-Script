@@ -17,7 +17,7 @@ def InstallGolang(passw):
                      )
 
     # adding enviroment variables to .bash_profile
-    install_dir = util.ext_call([['brew', '--prefix', brewname]],
+    install_dir = util.ext_call(['brew', '--prefix', brewname],
                                 getstdout=True).strip(' \t\n')
                                 
     util.add_env_var({'GOPATH':['${HOME}', '.go']})
@@ -37,7 +37,7 @@ def UninstallGolang(passw):
     brewname = 'go'    
     install_dir = ''
     if util.check_command_exists('brew'):
-        install_dir = util.ext_call([['brew', '--prefix', brewname]],
+        install_dir = util.ext_call(['brew', '--prefix', brewname],
                                     getstdout=True).strip(' \t\n')
     else:
         install_dir = os.path.join(util.BREW_PKG_DEFAULT_DIR, brewname)

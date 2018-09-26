@@ -321,10 +321,10 @@ def install_app(app, passw, ext_verbose=False, cask=True):
     brew = ['brew']
     if cask: brew.append('cask')
     # if app is not installed
-    if not ext_call([brew + ['list', app]], getstdout=True):
+    if not ext_call(brew + ['list', app], getstdout=True):
         # dummy command, so cask won't ask for password again
-        ext_call([['echo']], sudopass=passw)
-        ext_call([brew + ['install', app]], verbose=ext_verbose)
+        ext_call(['echo'], sudopass=passw)
+        ext_call(brew + ['install', app], verbose=ext_verbose)
 
 # Description:
 # This function can be called to COMPLETELY remove an app and all
@@ -390,8 +390,8 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
             brew = ['brew']
             if cask: brew.append('cask')
             # dummy command, so cask wont ask for password again
-            ext_call([['echo']], sudopass=passw, verbose=ext_verbose)
-            ext_call([brew + ['uninstall', brewname]], verbose=ext_verbose)
+            ext_call(['echo'], sudopass=passw, verbose=ext_verbose)
+            ext_call(brew + ['uninstall', brewname], verbose=ext_verbose)
       
     if misc_files_and_dirs:
         if not isinstance(misc_files_and_dirs, list):
@@ -399,7 +399,7 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
         for item in misc_files_and_dirs:
             if os.path.exists(item):
                 if not debug:
-                    ext_call([['rm','-rf', item]], sudopass=passw, verbose=ext_verbose)   
+                    ext_call(['rm','-rf', item], sudopass=passw, verbose=ext_verbose)   
                 else:
                     print(item)
     
@@ -409,7 +409,7 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
             if res:
                 for item in res:
                     if not debug:
-                        ext_call([['rm','-rf', item]], sudopass=passw, verbose=ext_verbose)
+                        ext_call(['rm','-rf', item], sudopass=passw, verbose=ext_verbose)
                     else:
                         print(item)
 
@@ -417,7 +417,7 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
 # Description:
 # It uses subprocess to make calls to bash commands.
 # Parameters:
-#   cmd_list - a list of lists ( [ [], [], ...] ) with all the commands (passed the
+#   cmds - a list of lists ( [ [], [], ...] ) with all the commands (passed the
 #       way 'subprocess.Popen()' expects them) that need to be executed.
 #       If more than one sublist(command) is present inside the main list it will be piped
 #       to the next command.
@@ -434,21 +434,23 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
 #   verbose - Default - False. If set to true it will allow every executed
 #       command's stdout and stderr to be printed in the terminal. Normally
 #       this is only needed for debugging purposes.
-def ext_call(cmd_list, getstdout=False, sudopass=None, verbose=False):
-    if not isinstance(cmd_list, list): raise TypeError('Provided var is not a list')
-    if len(cmd_list) == 0: raise ValueError('List is empty')
-    if not any(isinstance(i, list) for i in cmd_list): 
+def ext_call(*cmds, **kwargs):
+    getstdout = kwargs.pop('getstdout', False)
+    sudopass  = kwargs.pop('sudopass', None)
+    verbose   = kwargs.pop('verbose', False)
+    if len(cmds) == 0: raise ValueError('List is empty')
+    if not any(isinstance(i, list) for i in cmds): 
         raise TypeError('One or more elements of the provided list is not a list')
-    if any(not i for i in cmd_list): 
+    if any(not i for i in cmds): 
         raise ValueError('One or more elements of the provided list is an empty list')
-    if any(not isinstance(y, str) for x in cmd_list for y in x): 
+    if any(not isinstance(y, str) for x in cmds for y in x): 
         raise TypeError('One or more of the nested lists elements is not a string')
-    if any(not y for x in cmd_list for y in x): 
+    if any(not y for x in cmds for y in x): 
         raise ValueError('One or more of the nested lists elements is an empty string')
     
     process = None
     next_process = None
-    cmd_list_last_idx = len(cmd_list) - 1
+    cmds_last_idx = len(cmds) - 1
 
     DEVNULL = None
     try:
@@ -456,7 +458,7 @@ def ext_call(cmd_list, getstdout=False, sudopass=None, verbose=False):
     except:
         DEVNULL = open(os.devnull, 'w')
 
-    for i, cmd in enumerate(cmd_list):
+    for i, cmd in enumerate(cmds):
         if i == 0:
             std_dict = {}
             if not verbose: std_dict.update({"stderr":DEVNULL,
@@ -468,13 +470,13 @@ def ext_call(cmd_list, getstdout=False, sudopass=None, verbose=False):
                                            **({"stderr":DEVNULL} if not verbose else {}))
                 std_dict.update({'stdin':process.stdout})
 
-            if cmd_list_last_idx > 0 or getstdout:
+            if cmds_last_idx > 0 or getstdout:
                 std_dict.update({'stdout': subprocess.PIPE})
 
             next_process = subprocess.Popen(cmd, **std_dict)
             process = next_process
 
-        if i < cmd_list_last_idx:
+        if i < cmds_last_idx:
             std_dict = {'stdin':process.stdout,
                         'stdout':subprocess.PIPE}
             if not verbose: std_dict.update({'stderr':DEVNULL})
@@ -509,12 +511,12 @@ def ext_call(cmd_list, getstdout=False, sudopass=None, verbose=False):
 # Checks if a given bash commands exists
 def check_command_exists(cmd):
     try:
-        ext_call([[cmd]]) 
+        ext_call([cmd]) 
     except OSError as e:
         if e.errno == os.errno.ENOENT:        
             # sometimes command remains cached and checks decides
             # that the command exists even though it doesn't
-            ext_call([['hash', '-d', cmd]])
+            ext_call(['hash', '-d', cmd])
             return False
         else:
             sys.exit('Error while trying to run %s', cmd)
@@ -563,18 +565,18 @@ def get_symlinks(dirs, targets, basename=True):
 # Writes an array value in a plist to a given domain and key, using the defaults command
 def defaults_append_to_array(domain, key, value):
     value = '"%s"' % value.strip('"')
-    arr_contents = ext_call([['defaults', 'read', domain,
-                    key]], getstdout=True)
+    arr_contents = ext_call(['defaults', 'read', domain,
+                    key], getstdout=True)
     if not re.search(re.escape(value), arr_contents):
-        ext_call([['defaults', 'write', domain,
-                    key, '-array-add', value]])
+        ext_call(['defaults', 'write', domain,
+                    key, '-array-add', value])
 
 # Description:
 # Deletes an array value from a plist in given domain and key, using the defaults command
 def defaults_delete_from_array(domain, key, value):
     value = '"%s"' % value.strip('"')
-    arr_contents = ext_call([['defaults', 'read', domain,
-                    key]], getstdout=True)
+    arr_contents = ext_call(['defaults', 'read', domain,
+                    key], getstdout=True)
     if re.search('[\(\);]', arr_contents):
         # if it is indeed an array
         arr_contents = re.sub('[\n\(\);]', '', arr_contents)
@@ -585,8 +587,8 @@ def defaults_delete_from_array(domain, key, value):
         cmd_arr = ['defaults', 'write', domain,
                         key, '-array']
         for item in arr_contents: cmd_arr.append(item)
-        ext_call([['defaults', 'delete', domain, key]])
-        ext_call([cmd_arr])
+        ext_call(['defaults', 'delete', domain, key])
+        ext_call(cmd_arr)
 
 if __name__ == '__main__':
     sys.exit('Please do not call this script directly. It is called by the other mods when needed...')
