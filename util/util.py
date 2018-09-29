@@ -336,6 +336,10 @@ def install_app(app, passw, ext_verbose=False, cask=True):
         Find a way to not raise OSError if brew is not installed.
         (Currently crashes because i don't want to create import loops with dependencies.py)
     '''
+    if not isinstance(app, str): raise TypeError("Var is not a string")
+    if not isinstance(passw, str): raise TypeError("Var is not a string")
+    if not app: raise ValueError('Var is an empty string')
+
     if not check_command_exists('brew'):
         raise OSError('Homebrew is not installed, cannot install app...')
     brew = ['brew']
@@ -368,8 +372,8 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
                     For example one might give a 'com.myorg.myapp*'
                     as one of the app names in the list
     *   passw -- the sudo password. It will be passed to ext_call
-    *   std_dirs -- a list of standard directories defined this module's
-            global namespace.
+    *   std_dirs -- a list of strings with standard directories defined
+            this module's global namespace.
             (default - 'APP_DIRS')
     *   misc_files_and_dirs -- a list of additional directories/files that
             need to be deleted and are not located in std_dirs directories
@@ -399,9 +403,20 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
         The whole delete app process of a non Homebrew cask app needs to be refactored
   
     '''
-    if not isinstance(app_names, list):
-        raise TypeError('Provided var is not a list')
-    
+    arg_type_check_lst = [app_names, std_dirs]
+    if misc_files_and_dirs != None: arg_type_check_lst.append(misc_files_and_dirs)
+    for arg in arg_type_check_lst:
+        if not isinstance(arg, list):
+            raise TypeError('Provided var is not a list')
+        if not any(isinstance(i, str) for i in arg): 
+            raise TypeError('One or more elements of the provided list is not a string')
+        if any(not i for i in arg): 
+            raise ValueError('One or more elements of the provided list is an empty string')
+
+    if not isinstance(passw, str): raise TypeError('Var is not a string')
+    if (not isinstance(brewname, None)) or (not isinstance(brewname, str)): 
+        raise TypeError('Var is not a string')
+
     if not (nobrew or debug):
         if not isinstance(brewname, str):
             raise TypeError('brewname var is not a string')
@@ -548,6 +563,8 @@ def check_command_exists(cmd):
             return False
         else:
             raise OSError(e.message)
+    except Exception as e:
+        raise Exception(e.message)
     return True
 
 def check_path_exists(path):
