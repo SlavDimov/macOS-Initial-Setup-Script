@@ -350,7 +350,7 @@ def install_app(app, passw, ext_verbose=False, cask=True):
         ext_call(['echo'], sudopass=passw)
         ext_call(brew + ['install', app], verbose=ext_verbose)
 
-def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, nobrew=False,
+def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=[], nobrew=False,
                brewname=None, debug=False, ext_verbose=False, cask=True):
     '''
     This function can be called to COMPLETELY remove an app and all of it's settings.
@@ -404,7 +404,7 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
   
     '''
     arg_type_check_lst = [app_names, std_dirs]
-    if misc_files_and_dirs != None: arg_type_check_lst.append(misc_files_and_dirs)
+    if misc_files_and_dirs: arg_type_check_lst.append(misc_files_and_dirs)
     for arg in arg_type_check_lst:
         if not isinstance(arg, list):
             raise TypeError('Provided var is not a list')
@@ -414,8 +414,6 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
             raise ValueError('One or more elements of the provided list is an empty string')
 
     if not isinstance(passw, str): raise TypeError('Var is not a string')
-    if (not isinstance(brewname, None)) or (not isinstance(brewname, str)): 
-        raise TypeError('Var is not a string')
 
     if not (nobrew or debug):
         if not isinstance(brewname, str):
@@ -429,9 +427,7 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=None, no
             ext_call(['echo'], sudopass=passw, verbose=ext_verbose)
             ext_call(brew + ['uninstall', brewname], verbose=ext_verbose)
       
-    if misc_files_and_dirs:
-        if not isinstance(misc_files_and_dirs, list):
-            raise TypeError('Provided var is not a list')         
+    if misc_files_and_dirs:      
         for item in misc_files_and_dirs:
             if os.path.exists(item):
                 if not debug:

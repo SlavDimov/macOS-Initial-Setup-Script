@@ -36,11 +36,10 @@ def UninstallGolang(passw):
 
     brewname = 'go'    
     install_dir = ''
-    if util.check_command_exists('brew'):
-        install_dir = util.ext_call(['brew', '--prefix', brewname],
-                                    getstdout=True).strip(' \t\n')
-    else:
-        install_dir = os.path.join(util.BREW_PKG_DEFAULT_DIR, brewname)
+    # HACK: Brew does not return the correct directory, so
+    # we use the default one.
+    # This will fail if python is not installed in the default dir
+    install_dir = os.path.join(util.BREW_PKG_DEFAULT_DIR, brewname)
     
     pkg_names = list(set(util.get_symlinks(
                 util.PKG_SYMLINK_DIRS,
@@ -57,7 +56,7 @@ def UninstallGolang(passw):
                      cask=False,
 	#				 debug=True,
 	#				 nobrew=True,
-	#    			 ext_verbose=True,
+    #                ext_verbose=True,
 	)
 
     # removing enviroment variables from .bash_profile
