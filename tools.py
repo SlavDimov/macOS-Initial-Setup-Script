@@ -36,10 +36,8 @@ def UninstallGolang(passw):
 
     brewname = 'go'    
     install_dir = ''
-    # HACK: Brew does not return the correct directory, so
-    # we use the default one.
-    # This will fail if python is not installed in the default dir
-    install_dir = os.path.join(util.BREW_PKG_DEFAULT_DIR, brewname)
+
+    install_dir = os.path.join(util.get_brew_cellar(), brewname)
     
     pkg_names = list(set(util.get_symlinks(
                 util.PKG_SYMLINK_DIRS,
@@ -92,10 +90,7 @@ def UninstallPython3(passw):
     package_dir_name = 'python'
     install_dir = ''
     
-    # HACK: Brew does not return the correct directory, so
-    # we use the default one.
-    # This will fail if python is not installed in the default dir
-    install_dir = os.path.join(util.BREW_PKG_DEFAULT_DIR, package_dir_name)
+    install_dir = os.path.join(util.get_brew_cellar(), package_dir_name)
 
     pkg_names = list(set(util.get_symlinks(
                 util.PKG_SYMLINK_DIRS,

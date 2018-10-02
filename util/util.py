@@ -687,5 +687,22 @@ def defaults_delete_from_array(domain, key, value):
         ext_call(['defaults', 'delete', domain, key])
         ext_call(cmd_arr)
 
+def get_brew_cellar():
+    '''
+    Returns the directory of brew's Cellar.
+
+    If it detects that Homebrew is not installed
+    it will return the default dir, stored in
+    'BREW_PKG_DEFAULT_DIR' global variable.
+    '''
+    
+    cellar = ''
+    if check_command_exists('brew'):
+        cellar = ext_call(['brew', '--cellar'], getstdout=True).strip('\n')
+
+    if not cellar:
+        cellar = BREW_PKG_DEFAULT_DIR
+    return cellar
+
 if __name__ == '__main__':
     sys.exit('Please do not call this script directly. It is called by the other mods when needed...')
