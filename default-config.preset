@@ -21,8 +21,15 @@ FinderShowQuitMenu                      # FinderHideQuitMenu
 FinderRestart
 
 ## Terminal Tweaks
-TerminalSetPredefinedProfilePro         # TerminalSetPredefinedProfileBasic
+TerminalSetPredefProfilePro             # TerminalSetPredefProfileBasic
+# TerminalSetStartupPredefProfilePro    # TerminalSetStartupPredefProfileBasic
+TerminalSetNewWindowSameProfile         # TerminalSetNewWindowDefaultProfile
+TerminalSetNewTabSameProfile            # TerminalSetNewTabDefaultProfile
+TerminalSetNewWindowDefaultWorkDir      # TerminalSetNewWindowSameWorkDir
+TerminalSetNewTabSameWorkDir            # TerminalSetNewTabDefaultWorkDir
 TerminalSetPS1ToPreset1                 # TerminalResetPS1ToDefault
+TerminalSwitchTabKeysOn                 # TerminalSwitchTabKeysOff
+# TerminalHighContrastIBeamOn           # TerminalHighContrastIBeamOn
 
 
 ## Dock Tweaks

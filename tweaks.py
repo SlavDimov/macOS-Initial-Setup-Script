@@ -656,16 +656,122 @@ def SystemUIRestart(passw):
     util.ext_call(['killall', 'SystemUIServer'])
 
 # Description:
-# This tweak will set the predefined Terminal profile to Basic
-def TerminalSetPredefinedProfileBasic(passw):
-    print('Setting the Terminal profile to \'Basic\'...')          
+# This tweak will set Terminal's startup window
+# predefined profile to Basic
+def TerminalSetStartupPredefProfileBasic(passw):
+    print('Setting Terminal\'s startup profile to \'Basic\'...')          
     util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Startup Window Settings', 'Basic'])
 
 # Description:
-# This tweak will set the predefined Terminal profile to Pro
-def TerminalSetPredefinedProfilePro(passw):
-    print('Setting the Terminal profile to \'Basic\'...')          
+# This tweak will set Terminal's default
+# predefined profile to Basic
+def TerminalSetPredefProfileBasic(passw):
+    print('Setting Terminal\'s profile to \'Basic\'...')
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Default Window Settings', 'Basic'])
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Startup Window Settings', 'Basic'])
+
+# Description:
+# This tweak will set Terminal's startup window
+# predefined profile to Pro
+def TerminalSetStartupPredefProfilePro(passw):
+    print('Setting Terminal\'s startup profile to \'Pro\'...')          
     util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Startup Window Settings', 'Pro'])
+
+# Description:
+# This tweak will set Terminal's default
+# predefined profile to Pro
+def TerminalSetPredefProfilePro(passw):
+    print('Setting Terminal\'s profile to \'Pro\'...')
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Default Window Settings', 'Pro'])
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Startup Window Settings', 'Pro'])
+
+# Description:
+# This tweak will set new Terminal windows
+# to open with the same profile as the startup one.
+def TerminalSetNewWindowSameProfile(passw):
+    print('Setting new Terminal windows to open with the same profile as the startup one...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'NewWindowSettingsBehavior', '-int', '2'])
+
+# Description:
+# This tweak will set new Terminal windows
+# to open with the default profile instead of
+# the same as the startup window.
+def TerminalSetNewWindowDefaultProfile(passw):
+    print('Setting new Terminal windows to open with the default profile...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'NewWindowSettingsBehavior', '-int', '1'])
+
+# Description:
+# This tweak will set new Terminal tabs
+# to open with the same profile as the startup one.
+def TerminalSetNewTabSameProfile(passw):
+    print('Setting new Terminal tabs to open with the same profile as the startup one...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'NewTabSettingsBehavior', '-int', '2'])
+
+# Description:
+# This tweak will set new Terminal tab
+# to open with the default profile instead of
+# the same as the startup window.
+def TerminalSetNewTabDefaultProfile(passw):
+    print('Setting new Terminal tabs to open with the default profile...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'NewTabSettingsBehavior', '-int', '1'])
+
+# Description:
+# This tweak will set new Terminal windows
+# to open the same working directory as the startup one.
+def TerminalSetNewWindowSameWorkDir(passw):
+    print('Setting new Terminal windows to open the same work directory as the startup one...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'NewWindowWorkingDirectoryBehavior', '-int', '2'])
+
+# Description:
+# This tweak will set new Terminal windows
+# to open the default working directory instead of
+# the same as the startup one.
+def TerminalSetNewWindowDefaultWorkDir(passw):
+    print('Setting new Terminal windows to open the default work directory...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'NewWindowWorkingDirectoryBehavior', '-int', '1'])
+
+# Description:
+# This tweak will set new Terminal tabs
+# to open the same working directory as the startup one.
+def TerminalSetNewTabSameWorkDir(passw):
+    print('Setting new Terminal tabs to open the same work directory as the startup one...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'NewTabWorkingDirectoryBehavior', '-int', '2'])
+
+# Description:
+# This tweak will set new Terminal tabs
+# to open the default working directory instead of
+# the same as the startup one.
+def TerminalSetNewTabDefaultWorkDir(passw):
+    print('Setting new Terminal tabs to open the default work directory...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'NewTabWorkingDirectoryBehavior', '-int', '1'])
+
+# Description:
+# This tweak will set Terminal
+# to switch tabs with cmd + [1 - 9] keys
+def TerminalSwitchTabKeysOn(passw):
+    print('Setting Terminal to swtich tabs with cmd + [1 - 9] keys...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Command1Through9SwitchesTabs', '-int', '1'])
+
+# Description:
+# This tweak will unset Terminal
+# to switch tabs with cmd + [1 - 9] keys
+def TerminalSwitchTabKeysOff(passw):
+    print('Unsetting Terminal to swtich tabs with cmd + [1 - 9] keys...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Command1Through9SwitchesTabs', '-int', '0'])
+
+# Description:
+# This tweak will enable Terminal's
+# high contrast I beam
+def TerminalHighContrastIBeamOn(passw):
+    print('Enabling Terminal\'s high contrast I beam...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'UseCustomIBeamCursor', '-int', '1'])
+
+# Description:
+# This tweak will disable Terminal's
+# high contrast I beam
+def TerminalHighContrastIBeamOff(passw):
+    print('Disabling Terminal\'s high contrast I beam...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'UseCustomIBeamCursor', '-int', '0'])
 
 # Description:
 # This tweak will export the PS1 variable to the folowing format:
