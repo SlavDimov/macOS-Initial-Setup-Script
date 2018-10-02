@@ -20,6 +20,11 @@ FinderShowHiddenFiles                   # FinderHideHiddenFiles
 FinderShowQuitMenu                      # FinderHideQuitMenu
 FinderRestart
 
+## Terminal Tweaks
+TerminalSetPredefinedProfilePro         # TerminalSetPredefinedProfileBasic
+TerminalSetPS1ToPreset1                 # TerminalResetPS1ToDefault
+
+
 ## Dock Tweaks
 # DockShowOnlyActiveApp                 # DockShowAllActiveApps
 DockSizeSmaller                         # DockSizeStock                         # DockSizeBigger

@@ -655,7 +655,37 @@ def SystemUIRestart(passw):
     print('Restarting SystemUIServer...')
     util.ext_call(['killall', 'SystemUIServer'])
 
+# Description:
+# This tweak will set the predefined Terminal profile to Basic
+def TerminalSetPredefinedProfileBasic(passw):
+    print('Setting the Terminal profile to \'Basic\'...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Startup Window Settings', 'Basic'])
 
+# Description:
+# This tweak will set the predefined Terminal profile to Pro
+def TerminalSetPredefinedProfilePro(passw):
+    print('Setting the Terminal profile to \'Basic\'...')          
+    util.ext_call(['defaults', 'write', 'com.apple.Terminal', 'Startup Window Settings', 'Pro'])
+
+# Description:
+# This tweak will export the PS1 variable to the folowing format:
+# "<user>@<hostname>:<working_dir_path>$ "
+# Colors:
+# <user>@<hostname> - bright green
+# : - default terminal foreground color (probably white)
+# <working_dir_path> - bright blue
+# $ - default terminal foreground color (probably white)
+def TerminalSetPS1ToPreset1(passw):
+    print('Setting the Terminal\'s PS1 to user preset 1...')          
+    util.add_env_var({'PS1': [r'\[\e[92m\]\u@\h\[\e[m\]:\[\e[94m\]\w\[\e[m\]\\$ ']},
+                        force=True)
+
+# Description:
+# This tweak will export remove any
+# exported PS1 variables from .bash_profile.
+def TerminalResetPS1ToDefault(passw):
+    print('Resetting the Terminal\'s PS1 to default...')    
+    util.remove_env_var('PS1')
 
 if __name__ == '__main__':
     sys.exit('Please import this script into "macOS-Initial-Setup-Script.py" and use it from there')
