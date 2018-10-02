@@ -7,6 +7,9 @@ InstallVSCode                           # UninstallVSCode
 InstallChrome                           # UninstallChrome
 InstallSkype                            # UninstallSkype
 InstallSpotify                          # UninstallSpotify
+# InstallVLC                            # UninstallVLC
+# InstallLibreOffice                    # UninstallLibreOffice
+InstallRocketChat                       # UninstallRocketChat
 
 ## Terminal Apps
 InstallGolang                           # UninstallGolang

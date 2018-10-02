@@ -14,9 +14,17 @@ PKG_SYMLINK_DIRS = [
 APP_DIRS = [
     '/Applications/',
     os.path.join(os.path.expanduser('~'), 'Library/Application Support/'),
+    os.path.join(os.path.expanduser('~'), 'Library/Application Scripts/'),
+    os.path.join(os.path.expanduser('~'),
+        'Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/'),
 	os.path.join(os.path.expanduser('~'), 'Library/Preferences/'),
 	os.path.join(os.path.expanduser('~'), 'Library/Caches/'),
+	os.path.join(os.path.expanduser('~'), 'Library/Containers/'),
+	os.path.join(os.path.expanduser('~'), 'Library/Cookies/'),
+	os.path.join(os.path.expanduser('~'), 'Library/Logs/'),
 	os.path.join(os.path.expanduser('~'), 'Library/Saved Application State/'),
+	os.path.join(os.path.expanduser('~'), 'Library/LaunchAgents/'),
+
 ]
 
 def append_to_path(*values, **kwargs):
@@ -377,7 +385,9 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=[], nobr
             (default - 'APP_DIRS')
     *   misc_files_and_dirs -- a list of additional directories/files that
             need to be deleted and are not located in std_dirs directories
-            NOTE: The paths given here need to be exact. No wildcards available.
+            NOTE: A wildcard ('*') is allowed here.
+                    For example one might give a '/Library/Caches/com.myorg.myapp*'
+                    as one of the dirs/files in the list
             (default - None)
     *   nobrew -- if set to True, homebrew won't be called to uninstall the app
             (default - False)
@@ -429,11 +439,13 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=[], nobr
       
     if misc_files_and_dirs:      
         for item in misc_files_and_dirs:
-            if os.path.exists(item):
-                if not debug:
-                    ext_call(['rm','-rf', item], sudopass=passw, verbose=ext_verbose)   
-                else:
-                    print(item)
+            res = glob(item)
+            if res:
+                for r in res:
+                    if not debug:
+                        ext_call(['rm','-rf', r], sudopass=passw, verbose=ext_verbose)   
+                    else:
+                        print(r)
     
     for dir_ in std_dirs:
         for name in app_names:

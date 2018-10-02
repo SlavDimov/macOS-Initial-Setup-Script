@@ -46,6 +46,7 @@ def UninstallGolang(passw):
                 [util.get_file_with_parents(install_dir, 1)],
                 # basename=False
             )))
+    if not pkg_names: return    
     additional_dirs = [
         install_dir
 	]
@@ -101,6 +102,7 @@ def UninstallPython3(passw):
                 [util.get_file_with_parents(install_dir, 1)],
                 # basename=False
             )))
+    if not pkg_names: return
     additional_dirs = [
         install_dir
 	]
