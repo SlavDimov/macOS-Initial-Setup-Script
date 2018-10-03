@@ -110,6 +110,99 @@ def UninstallPython3(passw):
 	#				 nobrew=True,
 	#      			 ext_verbose=True,
     )
+
+# Description:
+# Installs Scons via Homebrew
+def InstallScons(passw):
+    print("Installing Scons...")
+
+    brewname = 'scons'
+    if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
+    util.install_app(brewname, passw,
+                      cask=False,
+                      ext_verbose=True,
+                     )
+
+# Description:
+# Uninstalls Scons
+def UninstallScons(passw):
+    print("Uninstalling Scons...")
+
+    brewname = 'scons'
+    install_dir = ''
     
+    install_dir = os.path.join(util.get_brew_cellar(), brewname)
+
+    pkg_names = list(set(util.get_symlinks(
+                util.PKG_SYMLINK_DIRS,
+                [util.get_file_with_parents(install_dir, 1)],
+                # basename=False
+            )))
+    if not pkg_names: return
+    additional_dirs = [
+        install_dir
+	]
+    util.remove_app(pkg_names, passw,
+	 				 misc_files_and_dirs=additional_dirs,
+					 brewname=brewname,
+                     std_dirs=util.PKG_SYMLINK_DIRS,
+                     cask=False,
+	#				 debug=True,
+	#				 nobrew=True,
+	#     			 ext_verbose=True,
+    )
+
+# Description:
+# Installs the ARM GCC toolchain (arm-none-eabi-gcc) via Homebrew
+# NOTE:
+# This will tap the following repo into Homebrew:
+# https://github.com/ARMmbed/homebrew-formulae
+def InstallARMGCC(passw):
+    print("Installing ARM GCC (arm-none-eabi-gcc)...")
+
+    brewname = 'arm-none-eabi-gcc'
+    brewtap  = 'ARMmbed/homebrew-formulae'
+    if not util.check_command_exists('brew'): dependencies.InstallHomebrew()
+    util.install_app(brewname, passw,
+                      cask=False,
+                      tap=brewtap,
+                    #   ext_verbose=True,
+                     )
+
+# Description:
+# Uninstalls the ARM GCC toolchain (arm-none-eabi-gcc)
+# NOTE:
+# This will untap the following repo from Homebrew:
+# https://github.com/ARMmbed/homebrew-formulae
+def UninstallARMGCC(passw):
+    print("Uninstalling ARM GCC (arm-none-eabi-gcc)...")
+
+    brewname = 'arm-none-eabi-gcc'
+    brewtap  = 'ARMmbed/homebrew-formulae'
+    install_dir = ''
+    
+    install_dir = os.path.join(util.get_brew_cellar(), brewname)
+
+    pkg_names = list(set(util.get_symlinks(
+                util.PKG_SYMLINK_DIRS,
+                [util.get_file_with_parents(install_dir, 1)],
+                # basename=False
+            )))
+    if not pkg_names: return
+    additional_dirs = [
+        install_dir
+	]
+    util.remove_app(pkg_names, passw,
+	 				 misc_files_and_dirs=additional_dirs,
+					 brewname=brewname,
+                     std_dirs=util.PKG_SYMLINK_DIRS,
+                     cask=False,
+                     tap=brewtap,
+	#				 debug=True,
+	#				 nobrew=True,
+	#     			 ext_verbose=True,
+    )
+
+
 if __name__ == '__main__':
     sys.exit('Please import this script into "macOS-Initial-Setup-Script.py" and use it from there')

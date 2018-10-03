@@ -14,6 +14,8 @@ InstallRocketChat                       # UninstallRocketChat
 ## Terminal Apps
 InstallGolang                           # UninstallGolang
 InstallPython3                          # UninstallPython3
+InstallScons                            # UninstallScons
+InstallARMGCC                           # UninstallARMGCC
 
 ## Finder Tweaks
 FinderShowHiddenFiles                   # FinderHideHiddenFiles

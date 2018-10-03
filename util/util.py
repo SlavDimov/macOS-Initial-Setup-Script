@@ -324,7 +324,7 @@ def remove_env_var(*variables, **kwargs):
     else:
         return file_contents
 
-def install_app(app, passw, ext_verbose=False, cask=True):
+def install_app(app, passw, ext_verbose=False, cask=True, tap=None):
     '''
     This function can be called to install an app via Homebrew
 
@@ -339,6 +339,8 @@ def install_app(app, passw, ext_verbose=False, cask=True):
             (for non graphical apps). Check Homebrew docs for
             additional information
             (default - True)
+    *   tap -- This adds a tap to Homebrew if specified
+        (default - None)
 
     TODO:
         Find a way to not raise OSError if brew is not installed.
@@ -347,6 +349,10 @@ def install_app(app, passw, ext_verbose=False, cask=True):
     if not isinstance(app, str): raise TypeError("Var is not a string")
     if not isinstance(passw, str): raise TypeError("Var is not a string")
     if not app: raise ValueError('Var is an empty string')
+    if tap is not None:
+        if not isinstance(tap, str): raise TypeError("tap var is not a string")
+        if len(tap) == 0: raise ValueError('Provided string is empty')   
+    
 
     if not check_command_exists('brew'):
         raise OSError('Homebrew is not installed, cannot install app...')
@@ -356,10 +362,11 @@ def install_app(app, passw, ext_verbose=False, cask=True):
     if not ext_call(brew + ['list', app], getstdout=True):
         # dummy command, so cask won't ask for password again
         ext_call(['echo'], sudopass=passw)
+        if tap: ext_call(['brew', 'tap', tap], verbose=ext_verbose)
         ext_call(brew + ['install', app], verbose=ext_verbose)
 
 def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=[], nobrew=False,
-               brewname=None, debug=False, ext_verbose=False, cask=True):
+               brewname=None, debug=False, ext_verbose=False, cask=True, tap=None):
     '''
     This function can be called to COMPLETELY remove an app and all of it's settings.
 
@@ -426,6 +433,9 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=[], nobr
     if not isinstance(passw, str): raise TypeError('Var is not a string')
 
     if not (nobrew or debug):
+        if tap is not None:
+            if not isinstance(tap, str): raise TypeError("tap var is not a string")
+            if len(tap) == 0: raise ValueError('Provided string is empty')      
         if not isinstance(brewname, str):
             raise TypeError('brewname var is not a string')
         if len(brewname) == 0:
@@ -436,7 +446,8 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=[], nobr
             # dummy command, so cask wont ask for password again
             ext_call(['echo'], sudopass=passw, verbose=ext_verbose)
             ext_call(brew + ['uninstall', brewname], verbose=ext_verbose)
-      
+            if tap: ext_call(['brew', 'untap', tap], verbose=ext_verbose)
+
     if misc_files_and_dirs:      
         for item in misc_files_and_dirs:
             res = glob(item)
@@ -703,6 +714,7 @@ def get_brew_cellar():
     if not cellar:
         cellar = BREW_PKG_DEFAULT_DIR
     return cellar
+
 
 if __name__ == '__main__':
     sys.exit('Please do not call this script directly. It is called by the other mods when needed...')
