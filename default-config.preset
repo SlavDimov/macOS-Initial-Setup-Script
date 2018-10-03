@@ -20,6 +20,20 @@ InstallARMGCC                           # UninstallARMGCC
 ## Finder Tweaks
 FinderShowHiddenFiles                   # FinderHideHiddenFiles
 FinderShowQuitMenu                      # FinderHideQuitMenu
+# FinderShowHardDisksOnDesktop          # FinderHideHardDisksFromDesktop
+# FinderHideExtDisksFromDesktop         # FinderShowExtDisksOnDesktop
+# FinderHideRemovableMediaFromDesktop   # FinderShowRemovableMediaOnDesktop
+# FinderShowConnectedServersOnDesktop   # FinderHideConnectedServersFromDesktop
+FinderStartupWindowHome                 # FinderStartupWindowRoot               # FinderStartupWindowRecents
+FinderOpenFoldersInNewTab               # FinderOpenFoldersInNewWindow
+FinderShowAllFilenameExtensionsOn       # FinderShowAllFilenameExtensionsOff
+FinderShowWarningOnExtensionChangeOff   # FinderShowWarningOnExtensionChangeOn
+FinderShowWarningBeforeRmFromICDriveOn  # FinderShowWarningBeforeRmFromICDriveOff
+FinderShowWarningBeforeTrashEmptyOn     # FinderShowWarningBeforeTrashEmptyOff
+FinderAutoEmptyTrashOn                  # FinderAutoEmptyTrashOff
+FinderPosixPathInTitleOn                # FinderPosixPathInTitleOff
+FinderShowFoldersBeforeFilesOn          # FinderShowFoldersBeforeFilesOff
+FinderSearchScopeCurrentDir             # FinderSearchScopeThisMac              # FinderSearchScopePrevSeachScope
 FinderRestart
 
 ## Terminal Tweaks
@@ -82,4 +96,3 @@ SystemKeyRepeatFast                     # SystemKeyRepeatNormal
 SystemTapToClickOn                      # SystemTapToClickOff
 SystemSilentClickOn                     # SystemSilentClickOff
 SystemScrollDirectionNatural            # SystemScrollDirectionReversed
-

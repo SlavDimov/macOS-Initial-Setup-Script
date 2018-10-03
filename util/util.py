@@ -715,6 +715,18 @@ def get_brew_cellar():
         cellar = BREW_PKG_DEFAULT_DIR
     return cellar
 
+def get_user_name():
+    '''
+    Returns current user's login name
+    '''
+    return os.getlogin()
+
+def get_home_dir():
+    '''
+    Returns current user's home directory path
+    '''
+    return os.path.expanduser('~')
+
 
 if __name__ == '__main__':
     sys.exit('Please do not call this script directly. It is called by the other mods when needed...')

@@ -29,6 +29,191 @@ def FinderHideQuitMenu(passw):
     util.ext_call(['defaults', 'write', 'com.apple.finder', 'QuitMenuItem', '-bool', 'false'])
 
 # Description:
+# This tweak will show all available hard disks on the desktop
+def FinderShowHardDisksOnDesktop(passw):
+    print('Showing available hard disks on desktop...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowHardDrivesOnDesktop', '-int', '1'])
+
+# Description:
+# This tweak will hide all available hard disks from the desktop
+def FinderHideHardDisksFromDesktop(passw):
+    print('Hiding available hard disks from desktop...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowHardDrivesOnDesktop', '-int', '0'])
+
+# Description:
+# This tweak will show all external disks on the desktop
+def FinderShowExtDisksOnDesktop(passw):
+    print('Showing available external disks on desktop...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowExternalHardDrivesOnDesktop', '-int', '1'])
+
+# Description:
+# This tweak will hide all external disks from the desktop
+def FinderHideExtDisksFromDesktop(passw):
+    print('Hiding available external disks from desktop...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowExternalHardDrivesOnDesktop', '-int', '0'])
+
+# Description:
+# This tweak will show all removable media (CDs, DVDs, iPods etc.) on the desktop
+def FinderShowRemovableMediaOnDesktop(passw):
+    print('Showing removable media on desktop...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowRemovableMediaOnDesktop', '-int', '1'])
+
+# Description:
+# This tweak will hide all removable media (CDs, DVDs, iPods etc.) from the desktop
+def FinderHideRemovableMediaFromDesktop(passw):
+    print('Hiding removable media from desktop...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowRemovableMediaOnDesktop', '-int', '0'])
+
+# Description:
+# This tweak will show all connected servers on the desktop
+def FinderShowConnectedServersOnDesktop(passw):
+    print('Showing connected servers on desktop...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowMountedServersOnDesktop', '-int', '1'])
+
+# Description:
+# This tweak will hide all connected servers from the desktop
+def FinderHideConnectedServersFromDesktop(passw):
+    print('Hiding connected servers from desktop...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowMountedServersOnDesktop', '-int', '0'])
+
+# Description:
+# This tweak set the 'Recents' category as Finders's startup window
+def FinderStartupWindowRecents(passw):
+    print('Setting \'Recents\' as Finder\'s startup window...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'NewWindowTarget', 'PfAF'])
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'NewWindowTargetPath', 
+    'file:///System/Library/CoreServices/Finder.app/Contents/Resources/MyLibraries/myDocuments.cannedSearch'])
+
+# Description:
+# This tweak set the /home/<user> directory as Finders's startup window
+def FinderStartupWindowHome(passw):
+    home = util.get_home_dir()
+    print('Setting \'%s\' dir as Finder\'s startup window...' % home)
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'NewWindowTarget', 'PfHm'])
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'NewWindowTargetPath', 'file://%s' % home])
+
+# Description:
+# This tweak set the / directory as Finders's startup window
+def FinderStartupWindowRoot(passw):
+    print('Setting \'/\' (root) dir as Finder\'s startup window...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'NewWindowTarget', 'PfVo'])
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'NewWindowTargetPath', 'file:///'])
+
+# Description:
+# This tweak set Finder to open folders in new window
+def FinderOpenFoldersInNewWindow(passw):
+    print('Setting Finder to open folders in new window...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FinderSpawnTab', '-int', '0'])
+
+# Description:
+# This tweak set Finder to open folders in new tab
+def FinderOpenFoldersInNewTab(passw):
+    print('Setting Finder to open folders in new tab...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FinderSpawnTab', '-int', '1'])
+
+# Description:
+# This tweak set Finder to show all filename extensions
+def FinderShowAllFilenameExtensionsOn(passw):
+    print('Showing all filename extensions...')
+    util.ext_call(['defaults', 'write', 'NSGlobalDomain', 'AppleShowAllExtensions', '-int', '1'])
+
+# Description:
+# This tweak set Finder not to show all filename extensions
+def FinderShowAllFilenameExtensionsOff(passw):
+    print('Hiding known filename extensions...')
+    util.ext_call(['defaults', 'write', 'NSGlobalDomain', 'AppleShowAllExtensions', '-int', '0'])
+
+# Description:
+# This tweak set Finder to show a warning before changing an extension
+def FinderShowWarningOnExtensionChangeOn(passw):
+    print('Setting Finder to show warnings on extension change...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXEnableExtensionChangeWarning', '-int', '1'])
+
+# Description:
+# This tweak set Finder not to show a warning before changing an extension
+def FinderShowWarningOnExtensionChangeOff(passw):
+    print('Setting Finder not to show warnings on extension change...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXEnableExtensionChangeWarning', '-int', '0'])
+
+# Description:
+# This tweak set Finder to show a warning before removing from iCloud Drive
+def FinderShowWarningBeforeRmFromICDriveOn(passw):
+    print('Setting Finder to show warnings before removing from iCloud Drive...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXEnableRemoveFromICloudDriveWarning', '-int', '1'])
+
+# Description:
+# This tweak set Finder not to show a warning before removing from iCloud Drive
+def FinderShowWarningBeforeRmFromICDriveOff(passw):
+    print('Setting Finder not to show warnings before removing from iCloud Drive...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXEnableRemoveFromICloudDriveWarning', '-int', '0'])
+
+# Description:
+# This tweak set Finder to show a warning before emptying the trash
+def FinderShowWarningBeforeTrashEmptyOn(passw):
+    print('Setting Finder to show warning before emptying the trash...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'WarnOnEmptyTrash', '-int', '1'])
+
+# Description:
+# This tweak set Finder not to show a warning before emptying the trash
+def FinderShowWarningBeforeTrashEmptyOff(passw):
+    print('Setting Finder not to show warning before emptying the trash...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'WarnOnEmptyTrash', '-int', '0'])
+
+# Description:
+# This tweak automatically remove items from the Trash after 30 days
+def FinderAutoEmptyTrashOn(passw):
+    print('Setting Trash to auto remove items after 30 days...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXRemoveOldTrashItems', '-int', '1'])
+
+# Description:
+# This tweak stop removing items automatically from the Trash after 30 days
+def FinderAutoEmptyTrashOff(passw):
+    print('Setting Trash to not auto remove items after 30 days...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXRemoveOldTrashItems', '-int', '0'])
+
+# Description:
+# This tweak set Finder to show a POSIX style path in it's title
+def FinderPosixPathInTitleOn(passw):
+    print('Setting Finder to show a POSIX style path in it\'s title...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', '_FXShowPosixPathInTitle', '-int', '1'])
+
+# Description:
+# This tweak set Finder to show the default path style in it's title
+def FinderPosixPathInTitleOff(passw):
+    print('Setting Finder to show the default path style in it\'s title...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', '_FXShowPosixPathInTitle', '-int', '0'])
+
+# Description:
+# This tweak set Finder to show folders before files
+def FinderShowFoldersBeforeFilesOn(passw):
+    print('Setting Finder to show folders before files...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', '_FXSortFoldersFirst', '-int', '1'])
+
+# Description:
+# This tweak set Finder not to show folders before files
+def FinderShowFoldersBeforeFilesOff(passw):
+    print('Setting Finder not to show folders before files...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', '_FXSortFoldersFirst', '-int', '0'])
+
+# Description:
+# This tweak set Finder's search scope to 'This Mac'
+def FinderSearchScopeThisMac(passw):
+    print('Setting Finder\'s search scope to \'This Mac\'...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXDefaultSearchScope', 'SCev'])
+
+# Description:
+# This tweak set Finder's search scope to current directory
+def FinderSearchScopeCurrentDir(passw):
+    print('Setting Finder\'s search scope to current directory...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXDefaultSearchScope', 'SCcf'])
+
+# Description:
+# This tweak set Finder's search scope to 'Previous search scope'
+def FinderSearchScopePrevSeachScope(passw):
+    print('Setting Finder\'s search scope to \'Previous search scope\'...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXDefaultSearchScope', 'SCsp'])
+
+# Description:
 # Restarts Finder (this allows settings to be applied)
 def FinderRestart(passw):
     print('Restarting Finder...')
