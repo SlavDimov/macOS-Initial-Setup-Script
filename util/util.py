@@ -1,6 +1,7 @@
 import sys
 import os
 import re
+import errno
 from glob import glob
 import subprocess
 
@@ -575,15 +576,15 @@ def check_command_exists(cmd):
     try:
         ext_call([cmd]) 
     except OSError as e:
-        if e.errno == os.errno.ENOENT:        
+        if e.errno == errno.ENOENT:        
             # sometimes command remains cached and checks decides
             # that the command exists even though it doesn't
             ext_call(['hash', '-d', cmd])
             return False
         else:
-            raise OSError(e.message)
+            raise OSError(e)
     except Exception as e:
-        raise Exception(e.message)
+        raise Exception(e)
     return True
 
 def check_path_exists(path):
