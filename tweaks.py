@@ -214,6 +214,66 @@ def FinderSearchScopePrevSeachScope(passw):
     util.ext_call(['defaults', 'write', 'com.apple.finder', 'FXDefaultSearchScope', 'SCsp'])
 
 # Description:
+# This tweak will show Finder's tab view
+def FinderShowTabView(passw):
+    print('Showing Finder\'s tab view...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowTabView', '-int', '1'])
+
+# Description:
+# This tweak will hide Finder's tab view
+def FinderHideTabView(passw):
+    print('Hiding Finder\'s tab view...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowTabView', '-int', '0'])
+
+# Description:
+# This tweak will show Finder's sidebar
+def FinderShowSidebar(passw):
+    print('Showing Finder\'s sidebar...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowSidebar', '-int', '1'])
+
+# Description:
+# This tweak will hide Finder's sidebar
+def FinderHideSidebar(passw):
+    print('Hiding Finder\'s sidebar...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowSidebar', '-int', '0'])
+
+# Description:
+# This tweak will show Finder's status bar
+def FinderShowStatusBar(passw):
+    print('Showing Finder\'s status bar...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowStatusBar', '-int', '1'])
+
+# Description:
+# This tweak will hide Finder's status bar
+def FinderHideStatusBar(passw):
+    print('Hiding Finder\'s status bar...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowStatusBar', '-int', '0'])
+
+# Description:
+# This tweak will show Finder's preview pane
+def FinderShowPreviewPane(passw):
+    print('Showing Finder\'s preview pane...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowPreviewPane', '-int', '1'])
+
+# Description:
+# This tweak will hide Finder's preview pane
+def FinderHidePreviewPane(passw):
+    print('Hiding Finder\'s preview pane...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowPreviewPane', '-int', '0'])
+
+# Description:
+# This tweak will show Finder's pathbar
+def FinderShowPathbar(passw):
+    print('Showing Finder\'s pathbar...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowPathbar', '-int', '1'])
+
+# Description:
+# This tweak will hide Finder's pathbar
+def FinderHidePathbar(passw):
+    print('Hiding Finder\'s pathbar...')
+    util.ext_call(['defaults', 'write', 'com.apple.finder', 'ShowPathbar', '-int', '0'])
+
+# Description:
 # Restarts Finder (this allows settings to be applied)
 def FinderRestart(passw):
     print('Restarting Finder...')

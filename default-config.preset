@@ -34,6 +34,11 @@ FinderAutoEmptyTrashOn                  # FinderAutoEmptyTrashOff
 FinderPosixPathInTitleOn                # FinderPosixPathInTitleOff
 FinderShowFoldersBeforeFilesOn          # FinderShowFoldersBeforeFilesOff
 FinderSearchScopeCurrentDir             # FinderSearchScopeThisMac              # FinderSearchScopePrevSeachScope
+# FinderShowTabView                     # FinderHideTabView
+# FinderHideSidebar                     # FinderShowSidebar
+FinderShowStatusBar                     # FinderHideStatusBar
+# FinderShowPreviewPane                 # FinderHidePreviewPane
+# FinderShowPathbar                     # FinderHidePathbar
 FinderRestart
 
 ## Terminal Tweaks
