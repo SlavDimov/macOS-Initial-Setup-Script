@@ -25,7 +25,8 @@ The script consists of separate functions, each of which contains one tweak. The
 
 **NOTE:** You can find information about what each function does by opening one of the containing **.py** files in the root directory, with any text editor, and reading the description for each function.
 
-#### TIP: 
+**TIP:**
+ 
 Run: 
 ```
 $ python ./macOS-Initial-Setup-Script.py --help
