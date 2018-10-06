@@ -101,3 +101,4 @@ SystemKeyRepeatFast                     # SystemKeyRepeatNormal
 SystemTapToClickOn                      # SystemTapToClickOff
 SystemSilentClickOn                     # SystemSilentClickOff
 SystemScrollDirectionNatural            # SystemScrollDirectionReversed
+SystemShortcutsSetLaunchTerminal        # SystemShortcutsRemoveLaunchTerminal

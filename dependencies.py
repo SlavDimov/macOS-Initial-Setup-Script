@@ -21,7 +21,7 @@ def UninstallXCodeCmdDevTools(passw):
 def InstallHomebrew(passw):
     print("Installing Homebrew...")
     if util.check_command_exists('brew'): return
-    if not util.check_path_exists(util.GIT_DIR): InstallXCodeCmdDevTools(passw)
+    if not util.check_path_exists(util.GIT): InstallXCodeCmdDevTools(passw)
     script = util.ext_call(['curl', '-fsSL', 
     'https://raw.githubusercontent.com/Homebrew/install/master/install'], getstdout=True, sudopass=passw)
     util.ext_call(['echo', '-ne', '\'\n\''],
@@ -32,7 +32,7 @@ def InstallHomebrew(passw):
 def UninstallHomebrew(passw):
     print("Uninstalling Homebrew...")
     if not util.check_command_exists('brew'): return
-    if not util.check_path_exists(util.GIT_DIR): InstallXCodeCmdDevTools(passw)
+    if not util.check_path_exists(util.GIT): InstallXCodeCmdDevTools(passw)
     script = util.ext_call(['curl', '-fsSL', 
     'https://raw.githubusercontent.com/Homebrew/install/master/uninstall'], getstdout=True, sudopass=passw)
     util.ext_call(['echo', '-ne', '\'\n\''],

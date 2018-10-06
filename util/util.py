@@ -5,7 +5,11 @@ import errno
 from glob import glob
 import subprocess
 
-GIT_DIR = '/Library/Developer/CommandLineTools/usr/bin/git'
+GIT = '/Library/Developer/CommandLineTools/usr/bin/git'
+PLISTBUDDY = '/usr/libexec/PlistBuddy'
+PLIST_DIR = os.path.join(os.path.expanduser('~'), 'Library/Preferences')
+SERVICES_GBL_DIR = '/Library/Services'
+SERVICES_DIR = os.path.join(os.path.expanduser('~'), 'Library/Services')
 BASH_PROFILE = os.path.join(os.path.expanduser('~'), '.bash_profile')
 BREW_PKG_DEFAULT_DIR = '/usr/local/Cellar'
 PKG_SYMLINK_DIRS = [

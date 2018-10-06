@@ -719,6 +719,45 @@ def SystemScrollDirectionReversed(passw):
     util.ext_call(['defaults', 'write', 'NSGlobalDomain', 'com.apple.swipescrolldirection', '-int', '0'])
 
 # Description:
+# This tweak will set cmd+shit+r as a shortcut
+# to launch Terminal
+def SystemShortcutsSetLaunchTerminal(passw):
+    print('Setting shortcut \'cmd+shift+r\' to launch Terminal.app...')
+   
+    place = ':NSServicesStatus:\'(null) - Launch Terminal - runWorkflowAsService\''
+    plist_path = os.path.join(util.PLIST_DIR, 'pbs.plist')
+    key_combo = '@^r'
+    
+    util.ext_call(['mkdir', '-p', util.SERVICES_GBL_DIR],
+                  sudopass=passw)
+    util.ext_call(['rm', '-rf', 
+        os.path.join(util.SERVICES_GBL_DIR, 'Launch Terminal.workflow/')],
+        sudopass=passw)
+    util.ext_call(['cp', '-r', 'assets/services/Launch Terminal.workflow',
+                   os.path.join(util.SERVICES_GBL_DIR, 'Launch Terminal.workflow/')],
+                   sudopass=passw)
+    
+    util.ext_call([util.PLISTBUDDY, '-c', 'Delete %s:key_equivalent' % place, plist_path])
+    util.ext_call([util.PLISTBUDDY, '-c', 'Delete %s:enabled_context_menu' % place, plist_path])
+    util.ext_call([util.PLISTBUDDY, '-c', 'Delete %s:enabled_services_menu' % place, plist_path])
+    util.ext_call([util.PLISTBUDDY, '-c', 'Add %s:key_equivalent string %s' % (place, key_combo), plist_path])
+    
+# Description:
+# This tweak will remove cmd+shit+r shortcut
+# used to launch Terminal
+def SystemShortcutsRemoveLaunchTerminal(passw):
+    print('Removing shortcut \'cmd+shift+r\' used to launch Terminal.app...')
+   
+    place = ':NSServicesStatus:\'(null) - Launch Terminal - runWorkflowAsService\''
+    plist_path = os.path.join(util.PLIST_DIR, 'pbs.plist')
+    
+    util.ext_call(['rm', '-rf', 
+        os.path.join(util.SERVICES_GBL_DIR, 'Launch Terminal.workflow/')],
+        sudopass=passw)
+    
+    util.ext_call([util.PLISTBUDDY, '-c', 'Delete %s' % place, plist_path])
+
+# Description:
 # This tweak will show the battery status indicator in the Menu bar
 def SystemUIShowBatteryStatusIndicator(passw):
     print('Showing battery status indicator...')          
