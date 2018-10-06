@@ -37,9 +37,9 @@ def UninstallVSCode(passw):
                     passw,
                     misc_files_and_dirs=additional_dirs,
                     brewname=brewname,
-                    #				 debug=True,
-                    #				 nobrew=True,
-                    #				 ext_verbose=True,
+                    #                 debug=True,
+                    #                 nobrew=True,
+                    #                 ext_verbose=True,
                     )
 
 # Description:
@@ -81,9 +81,9 @@ def UninstallSkype(passw):
                     passw,
                     misc_files_and_dirs=additional_dirs,
                     brewname=brewname,
-                    #				 debug=True,
-                    #				 nobrew=True,
-                    #				 ext_verbose=True,
+                    #                 debug=True,
+                    #                 nobrew=True,
+                    #                 ext_verbose=True,
                     )
 
 # Description:
@@ -121,9 +121,9 @@ def UninstallChrome(passw):
                     passw,
                     misc_files_and_dirs=additional_dirs,
                     brewname=brewname,
-                    #				 debug=True,
-                    #				 nobrew=True,
-                    #				 ext_verbose=True,
+                    #                 debug=True,
+                    #                 nobrew=True,
+                    #                 ext_verbose=True,
                     )
 
 # Description:
@@ -155,9 +155,9 @@ def UninstallSpotify(passw):
                     passw,
                     misc_files_and_dirs=additional_dirs,
                     brewname=brewname,
-                    #				 debug=True,
-                    #				 nobrew=True,
-                    #				 ext_verbose=True,
+                    #                 debug=True,
+                    #                 nobrew=True,
+                    #                 ext_verbose=True,
                     )
 
 # Description:
@@ -189,9 +189,9 @@ def UninstallVLC(passw):
                     passw,
                     misc_files_and_dirs=additional_dirs,
                     brewname=brewname,
-                    #				 debug=True,
-                    #				 nobrew=True,
-                    #				 ext_verbose=True,
+                    #                 debug=True,
+                    #                 nobrew=True,
+                    #                 ext_verbose=True,
                     )
 
 # Description:
@@ -223,9 +223,9 @@ def UninstallLibreOffice(passw):
                     passw,
                     misc_files_and_dirs=additional_dirs,
                     brewname=brewname,
-                    #				 debug=True,
-                    #				 nobrew=True,
-                    #				 ext_verbose=True,
+                    #                 debug=True,
+                    #                 nobrew=True,
+                    #                 ext_verbose=True,
                     )
 
 # Description:
@@ -257,13 +257,13 @@ def UninstallRocketChat(passw):
                     passw,
                     misc_files_and_dirs=additional_dirs,
                     brewname=brewname,
-                    #				 debug=True,
-                    #				 nobrew=True,
-                    #				 ext_verbose=True,
+                    #                 debug=True,
+                    #                 nobrew=True,
+                    #                 ext_verbose=True,
                     )
 
 
 if __name__ == '__main__':
     sys.exit(
         'Please import this script into '
-		'"macOS-Initial-Setup-Script.py" and use it from there')
+        '"macOS-Initial-Setup-Script.py" and use it from there')

@@ -22,13 +22,13 @@ APP_DIRS = [
     os.path.join(os.path.expanduser('~'), 'Library/Application Scripts/'),
     os.path.join(os.path.expanduser('~'),
         'Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/'),
-	os.path.join(os.path.expanduser('~'), 'Library/Preferences/'),
-	os.path.join(os.path.expanduser('~'), 'Library/Caches/'),
-	os.path.join(os.path.expanduser('~'), 'Library/Containers/'),
-	os.path.join(os.path.expanduser('~'), 'Library/Cookies/'),
-	os.path.join(os.path.expanduser('~'), 'Library/Logs/'),
-	os.path.join(os.path.expanduser('~'), 'Library/Saved Application State/'),
-	os.path.join(os.path.expanduser('~'), 'Library/LaunchAgents/'),
+    os.path.join(os.path.expanduser('~'), 'Library/Preferences/'),
+    os.path.join(os.path.expanduser('~'), 'Library/Caches/'),
+    os.path.join(os.path.expanduser('~'), 'Library/Containers/'),
+    os.path.join(os.path.expanduser('~'), 'Library/Cookies/'),
+    os.path.join(os.path.expanduser('~'), 'Library/Logs/'),
+    os.path.join(os.path.expanduser('~'), 'Library/Saved Application State/'),
+    os.path.join(os.path.expanduser('~'), 'Library/LaunchAgents/'),
 
 ]
 

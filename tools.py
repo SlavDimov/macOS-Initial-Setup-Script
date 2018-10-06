@@ -47,16 +47,16 @@ def UninstallGolang(passw):
     if not pkg_names: return    
     additional_dirs = [
         install_dir
-	]
+    ]
     util.remove_app(pkg_names, passw,
-	 				 misc_files_and_dirs=additional_dirs,
-					 brewname=brewname,
+                      misc_files_and_dirs=additional_dirs,
+                     brewname=brewname,
                      std_dirs=util.PKG_SYMLINK_DIRS,
                      cask=False,
-	#				 debug=True,
-	#				 nobrew=True,
+    #                 debug=True,
+    #                 nobrew=True,
     #                ext_verbose=True,
-	)
+    )
 
     # removing enviroment variables from .bash_profile
     # Deliberately not removing 'GOPATH' since it might
@@ -100,15 +100,15 @@ def UninstallPython3(passw):
     if not pkg_names: return
     additional_dirs = [
         install_dir
-	]
+    ]
     util.remove_app(pkg_names, passw,
-	 				 misc_files_and_dirs=additional_dirs,
-					 brewname=brewname,
+                      misc_files_and_dirs=additional_dirs,
+                     brewname=brewname,
                      std_dirs=util.PKG_SYMLINK_DIRS,
                      cask=False,
-	#				 debug=True,
-	#				 nobrew=True,
-	#      			 ext_verbose=True,
+    #                 debug=True,
+    #                 nobrew=True,
+    #                   ext_verbose=True,
     )
 
 # Description:
@@ -141,15 +141,15 @@ def UninstallScons(passw):
     if not pkg_names: return
     additional_dirs = [
         install_dir
-	]
+    ]
     util.remove_app(pkg_names, passw,
-	 				 misc_files_and_dirs=additional_dirs,
-					 brewname=brewname,
+                      misc_files_and_dirs=additional_dirs,
+                     brewname=brewname,
                      std_dirs=util.PKG_SYMLINK_DIRS,
                      cask=False,
-	#				 debug=True,
-	#				 nobrew=True,
-	#     			 ext_verbose=True,
+    #                 debug=True,
+    #                 nobrew=True,
+    #                  ext_verbose=True,
     )
 
 # Description:
@@ -191,16 +191,16 @@ def UninstallARMGCC(passw):
     if not pkg_names: return
     additional_dirs = [
         install_dir
-	]
+    ]
     util.remove_app(pkg_names, passw,
-	 				 misc_files_and_dirs=additional_dirs,
-					 brewname=brewname,
+                      misc_files_and_dirs=additional_dirs,
+                     brewname=brewname,
                      std_dirs=util.PKG_SYMLINK_DIRS,
                      cask=False,
                      tap=brewtap,
-	#				 debug=True,
-	#				 nobrew=True,
-	#     			 ext_verbose=True,
+    #                 debug=True,
+    #                 nobrew=True,
+    #                  ext_verbose=True,
     )
 
 

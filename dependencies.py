@@ -61,4 +61,4 @@ def UninstallHomebrew(passw):
 if __name__ == '__main__':
     sys.exit(
         'Please import this script into '
-		'"macOS-Initial-Setup-Script.py" and use it from there')
+        '"macOS-Initial-Setup-Script.py" and use it from there')
