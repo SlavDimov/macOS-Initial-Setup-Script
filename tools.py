@@ -90,6 +90,8 @@ def InstallPython3(passw):
                      cask=False,
                      #   ext_verbose=True,
                      )
+    util.append_to_path(['/', 'usr', 'local', 'lib',
+                         'python3.7', 'site-packages'])
 
 # Description:
 # Uninstalls Python3
@@ -122,6 +124,8 @@ def UninstallPython3(passw):
                     #                 nobrew=True,
                     #                 ext_verbose=True,
                     )
+    util.remove_from_path(['/', 'usr', 'local', 'lib',
+                           'python3.7', 'site-packages'])
 
 # Description:
 # Installs Scons via Homebrew
