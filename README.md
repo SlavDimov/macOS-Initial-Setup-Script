@@ -25,6 +25,14 @@ The script consists of separate functions, each of which contains one tweak. The
 
 **NOTE:** You can find information about what each function does by opening one of the containing **.py** files in the root directory, with any text editor, and reading the description for each function.
 
+**TIP:**
+ 
+Run: 
+```
+$ python ./macOS-Initial-Setup-Script.py --help
+```
+To print help about the script usage.
+
 There are several ways to use this script:
 
 ### Using the default configuration preset
@@ -47,7 +55,7 @@ There are just a couple of rules:
 
 After that you can simply point the script to the newly created preset:
 ```
-$ python ./macOS-Initial-Setup-Script.py preset=myPreset.preset
+$ python ./macOS-Initial-Setup-Script.py --preset myPreset.preset
 ```
 
 ### Specifying functions from the command line
@@ -56,7 +64,5 @@ Sometimes you just want to quickly execute one or two specific functions without
 
 This can be achieved in the following way:
 ```
-$ python ./macOS-Initial-Setup-Script.py <function_name_1> <function_name_2> ...
+$ python ./macOS-Initial-Setup-Script.py --function <function_name_1> <function_name_2> ...
 ```
-
-

@@ -6,97 +6,134 @@ import sys
 import re
 import sqlite3
 import time
+import argparse
 from getpass import getpass
 
 from util import util
 
 import dependencies
-globals().update({k:vars(dependencies)[k] for k in vars(dependencies) if not re.match('^__.+__$', k)})
 import apps
-globals().update({k:vars(apps)[k] for k in vars(apps) if not re.match('^__.+__$', k)})
 import tweaks
-globals().update({k:vars(tweaks)[k] for k in vars(tweaks) if not re.match('^__.+__$', k)})
 import tools
-globals().update({k:vars(tools)[k] for k in vars(tools) if not re.match('^__.+__$', k)})
+
+for i in [dependencies, apps, tweaks, tools]:
+    globals().update({k: vars(i)[k]
+                      for k in vars(i) if not re.match('^__.+__$', k)})
 
 
 class Run:
-    __config_file   = 'default-config.preset'
-    __preset_ext    = '.preset'
-    __preset_opt    = 'preset='
-
     def __init__(self):
-        self.__ask_accessibility_permition()
+        config_file = 'default-config.preset'
+        self.preset_ext = '.preset'
+
+        parser = argparse.ArgumentParser(
+            description=(
+                'This script aims to automate '
+                'the process of setting up common features '
+                'and software on your Mac as much as possible.'),
+            epilog=(
+                'If the script is called without any arguments, '
+                'the default preset file (%s) will be used.'
+                % config_file))
+        parser.add_argument('-p', '--preset',
+                            nargs='?', const=config_file,
+                            default=None, type=str,
+                            metavar='myPreset.preset',
+                            help="Preset to be used.")
+        parser.add_argument('-f', '--functions',
+                            nargs='*',
+                            default=None, type=str,
+                            metavar='<function>',
+                            help="Functions to be executed")
+        args = parser.parse_args()
+
+        if args.preset == None and args.functions == None:
+            args.preset = config_file
 
         func_list = []
+        if args.preset != None:
+            func_list = self.read_config_file(args.preset)
+        if args.functions != None:
+            func_list += args.functions
 
-        if len(sys.argv) == 1:
-            func_list = self.__read_config_file(self.__search_for_config())
-        else:
-            if sys.argv[1].startswith(self.__preset_opt):
-                self.__config_file = sys.argv[1][len(self.__preset_opt):]
-                func_list = self.__read_config_file(self.__search_for_config())
-            else:
-                func_list = sys.argv[1:]    
+        self.ask_accessibility_permition()
+        self.run_func_list(func_list)
 
-        self.__run_func_list(func_list)
-
-    def __search_for_config(self):
-        if os.path.exists(self.__config_file):
-            return self.__config_file
-        elif os.path.exists(self.__config_file + self.__preset_ext):
-            return self.__config_file + self.__preset_ext
+    def search_for_config(self, config):
+        if os.path.exists(config):
+            return config
+        elif os.path.exists(config + self.preset_ext):
+            return config + self.preset_ext
         else:
             sys.exit('Configuration file not found...')
-                
-    def __read_config_file(self, filename):
+
+    def read_config_file(self, filename):
+        filename = self.search_for_config(filename)
         func_list = []
         with open(filename) as f:
             for line in f:
                 line = line.partition('#')[0]
                 line = line.strip()
-                if not re.match('^\s*$', line): func_list.append(line)
+                if not re.match(r'^\s*$', line):
+                    func_list.append(line)
         return func_list
-    
-    def __run_func_list(self, func_list):
+
+    def run_func_list(self, func_list):
         passw = getpass()
         for func in func_list:
             try:
                 globals()[func](passw)
             except KeyError:
-                sys.exit('Function \'%s\' not found...' % func)
+                print('Function \'%s\' not found. Skipping...' % func)
 
-    def __ask_accessibility_permition(self):
-        print ("Checking for required permissions...")
+    def ask_accessibility_permition(self):
+        print("Checking for required permissions...")
 
-        check_permission_script_editor = 'select exists(Select allowed from access where service="kTCCServiceAccessibility" and client="com.apple.ScriptEditor2" and allowed=1);'
-        check_permission_terminal      = 'select exists(Select allowed from access where service="kTCCServiceAccessibility" and client="com.apple.Terminal" and allowed=1);'   
+        check_permission_script_editor = (
+            'select exists(Select allowed from access where '
+            'service="kTCCServiceAccessibility" and '
+            'client="com.apple.ScriptEditor2" and allowed=1);')
+        check_permission_terminal = (
+            'select exists(Select allowed from access where '
+            'service="kTCCServiceAccessibility" and '
+            'client="com.apple.Terminal" and allowed=1);')
 
-        msg_title = "Please add 'Terminal' and 'Script Editor' to the Accessibility Assist allowed apps"
-        msg = "In order for this script to work properly, please add 'Terminal' and 'Script Editor' apps to the Accessibility Assist allowed apps by checking their respected checkboxes or, if they are not there, click the '+' button and navigate to Applications->Utilities->Terminal & Script Editor"
+        msg_title = (
+            'Please add \'Terminal\' and \'Script Editor\' '
+            'to the Accessibility Assist allowed apps')
+        msg = (
+            'In order for this script to work properly, '
+            'please add \'Terminal\' and \'Script Editor\' '
+            'apps to the Accessibility Assist allowed apps '
+            'by checking their respected checkboxes or, if '
+            'they are not there, click the \'+\' button and '
+            'navigate to Applications->Utilities->Terminal & Script Editor')
 
         try:
-            conn = conn = sqlite3.connect('/Library/Application Support/com.apple.TCC/TCC.db')
+            conn = conn = sqlite3.connect(
+                '/Library/Application Support/com.apple.TCC/TCC.db')
             with conn:
                 c = conn.cursor()
 
-                script_allowed = c.execute(check_permission_script_editor).fetchone()[0]
-                terminal_allowed = c.execute(check_permission_terminal).fetchone()[0]
+                script_allowed = c.execute(
+                    check_permission_script_editor).fetchone()[0]
+                terminal_allowed = c.execute(
+                    check_permission_terminal).fetchone()[0]
+
                 if not (script_allowed and terminal_allowed):
                     print("\n%s\n\n%s\n\n..." % (msg_title, msg))
-                    util.ext_call(['osascript', 'dependencies.scpt', 'AskForAccessibilityPermitions', msg_title, msg])
+                    util.ext_call(['osascript', 'dependencies.scpt',
+                                   'AskForAccessibilityPermitions', msg_title, msg])
+
                     while not (script_allowed and terminal_allowed):
-                        script_allowed = c.execute(check_permission_script_editor).fetchone()[0]
-                        terminal_allowed = c.execute(check_permission_terminal).fetchone()[0]
+                        script_allowed = c.execute(
+                            check_permission_script_editor).fetchone()[0]
+                        terminal_allowed = c.execute(
+                            check_permission_terminal).fetchone()[0]
                         time.sleep(1)
         except:
-            sys.exit('Could not establish or aquire Accessibility Permissions...')
-
-
+            sys.exit('Could not establish or acquire Accessibility Permissions...')
 
 
 if __name__ == '__main__':
-   Run()
-
-    
-    
+    Run()
