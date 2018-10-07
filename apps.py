@@ -12,7 +12,7 @@ def InstallVSCode(passw):
     print("Installing Visual Studio Code...")
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app('visual-studio-code',
                      passw,
@@ -48,7 +48,7 @@ def InstallSkype(passw):
     print("Installing Skype...")
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app('skype',
                      passw,
@@ -92,7 +92,7 @@ def InstallChrome(passw):
     print("Installing Chrome...")
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app('google-chrome',
                      passw,
@@ -132,7 +132,7 @@ def InstallSpotify(passw):
     print("Installing Spotify...")
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app('spotify',
                      passw,
@@ -166,7 +166,7 @@ def InstallVLC(passw):
     print("Installing VLC...")
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app('vlc',
                      passw,
@@ -200,7 +200,7 @@ def InstallLibreOffice(passw):
     print("Installing Libre Office...")
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app('libreoffice',
                      passw,
@@ -234,7 +234,7 @@ def InstallRocketChat(passw):
     print("Installing Rocket Chat...")
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app('rocket-chat',
                      passw,

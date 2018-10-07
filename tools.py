@@ -14,7 +14,7 @@ def InstallGolang(passw):
     brewname = 'go'
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app(brewname,
                      passw,
@@ -83,7 +83,7 @@ def InstallPython3(passw):
     brewname = 'python3'
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app(brewname,
                      passw,
@@ -131,7 +131,7 @@ def InstallScons(passw):
     brewname = 'scons'
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app(brewname,
                      passw,
@@ -182,7 +182,7 @@ def InstallARMGCC(passw):
     brewtap = 'ARMmbed/homebrew-formulae'
 
     if not util.check_command_exists('brew'):
-        dependencies.InstallHomebrew()
+        dependencies.InstallHomebrew(passw)
 
     util.install_app(brewname,
                      passw,
