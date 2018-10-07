@@ -4,10 +4,9 @@ This script aims to automate the process of setting up common features and softw
 
 **NOTE:** In order for this script to work properly, 'Terminal' and 'Script Editor' apps need to be added to Accessibility Assist allowed apps.
 
-## Disclaimer
+## Compatible Versions
 
-Please note that this script is still a **very early work in progress**. Some of the advertised functionality may not work properly or not may not be there at all. Please **USE AT YOUR OWN RISK**. I will not be held responsible for any damage that might occur on your Mac as a result of using this script.
-
+* macOS High Sierra
 
 ## Getting Started
 
