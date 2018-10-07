@@ -1,3 +1,5 @@
+#pylint: disable=W1401
+
 import sys
 import os
 import re
@@ -6,12 +8,18 @@ from glob import glob
 import subprocess
 
 GIT = '/Library/Developer/CommandLineTools/usr/bin/git'
+
 PLISTBUDDY = '/usr/libexec/PlistBuddy'
+
 PLIST_DIR = os.path.join(os.path.expanduser('~'), 'Library/Preferences')
+
 SERVICES_GBL_DIR = '/Library/Services'
 SERVICES_DIR = os.path.join(os.path.expanduser('~'), 'Library/Services')
+
 BASH_PROFILE = os.path.join(os.path.expanduser('~'), '.bash_profile')
+
 BREW_PKG_DEFAULT_DIR = '/usr/local/Cellar'
+
 PKG_SYMLINK_DIRS = [
     '/usr/local/bin/',
     '/usr/local/opt/',
@@ -21,7 +29,8 @@ APP_DIRS = [
     os.path.join(os.path.expanduser('~'), 'Library/Application Support/'),
     os.path.join(os.path.expanduser('~'), 'Library/Application Scripts/'),
     os.path.join(os.path.expanduser('~'),
-        'Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/'),
+                 ('Library/Application Support/com.apple.sharedfilelist/'
+                  'com.apple.LSSharedFileList.ApplicationRecentDocuments/')),
     os.path.join(os.path.expanduser('~'), 'Library/Preferences/'),
     os.path.join(os.path.expanduser('~'), 'Library/Caches/'),
     os.path.join(os.path.expanduser('~'), 'Library/Containers/'),
@@ -31,6 +40,7 @@ APP_DIRS = [
     os.path.join(os.path.expanduser('~'), 'Library/LaunchAgents/'),
 
 ]
+
 
 def append_to_path(*values, **kwargs):
     '''
@@ -50,7 +60,7 @@ def append_to_path(*values, **kwargs):
                 the PATH variable in .bash_profile that is the same as the
                 one being added and it will append the new one(s) at the bottom.
                 (default - False)
-    
+
     Example:
         append_to_path(['${MYVAR}'],
                         ['${MYVAR}', 'with', 'extra', 'path'],
@@ -65,19 +75,23 @@ def append_to_path(*values, **kwargs):
 
     '''
     force = kwargs.pop('force', False)
-    if len(values) == 0: raise IndexError('At least one value must be provided')
-    if not any(isinstance(i, list) for i in values): 
-        raise TypeError('One or more elements of the provided list is not a list')
-    if any(not i for i in values): 
-        raise ValueError('One or more elements of the provided list is an empty list')
-    if any(not isinstance(y, str) for x in values for y in x): 
+    if len(values) == 0:
+        raise IndexError('At least one value must be provided')
+    if not any(isinstance(i, list) for i in values):
+        raise TypeError(
+            'One or more elements of the provided list is not a list')
+    if any(not i for i in values):
+        raise ValueError(
+            'One or more elements of the provided list is an empty list')
+    if any(not isinstance(y, str) for x in values for y in x):
         raise TypeError('One or more of the lists elements is not a string')
-    if any(not y for x in values for y in x): 
-        raise ValueError('One or more of the lists elements is an empty string')
+    if any(not y for x in values for y in x):
+        raise ValueError(
+            'One or more of the lists elements is an empty string')
 
     file_contents = ''
     values_to_append = []
-    
+
     joint_values = []
     exp_joint_values = []
     for value in values:
@@ -97,32 +111,37 @@ def append_to_path(*values, **kwargs):
 
     try:
         with open(BASH_PROFILE, 'r') as f:
-            for line in f: file_contents += line
+            for line in f:
+                file_contents += line
     except:
         # file doesn't exist
         pass
 
     for i, _ in enumerate(exp_joint_values):
-        regex_esc = joint_values[i].replace('$', '\$').replace('{','\{').replace('}', '\}')
-        regex = re.search('\s*export\s+PATH=".*%s:?.*' % regex_esc, file_contents)
+        regex_esc = re.escape(joint_values[i])
+        regex = re.search('\s*export\s+PATH=".*%s:?.*' %
+                          regex_esc, file_contents)
         if (exp_joint_values[i] in os.environ['PATH'] or regex) and not force:
             continue
-        values_to_append.append(joint_values[i])    
-    
+        values_to_append.append(joint_values[i])
+
     if force and file_contents:
         values_to_remove = []
-        for value in values_to_append: values_to_remove.append(value.split(os.sep))
-        file_contents = remove_from_path(*values_to_remove, file_contents=file_contents)
+        for value in values_to_append:
+            values_to_remove.append(value.split(os.sep))
+        file_contents = remove_from_path(
+            *values_to_remove, file_contents=file_contents)
 
     if values_to_append:
         file_contents += '\nexport PATH="$PATH'
         for value in values_to_append:
             file_contents += ':%s' % value
         file_contents += '"\n'
-    
+
     with open(BASH_PROFILE, 'w') as f:
         for line in file_contents:
             f.write(line)
+
 
 def remove_from_path(*values, **kwargs):
     '''
@@ -139,7 +158,7 @@ def remove_from_path(*values, **kwargs):
                 string will be manipulated and then returned with the
                 new contents. In that case .bash_profile won't be changed.
                 (default -  None)
-  
+
     Example:
         remove_from_path(['${MYVAR}'],
                          ['${MYVAR}', 'with', 'extra', 'path'],
@@ -156,47 +175,57 @@ def remove_from_path(*values, **kwargs):
         ...
     '''
     file_contents = kwargs.pop('file_contents', None)
-    if len(values) == 0: raise IndexError('At least one value must be provided')
-    if not any(isinstance(i, list) for i in values): 
-        raise TypeError('One or more elements of the provided list is not a list')
-    if any(not i for i in values): 
-        raise ValueError('One or more elements of the provided list is an empty list')
-    if any(not isinstance(y, str) for x in values for y in x): 
+    if len(values) == 0:
+        raise IndexError('At least one value must be provided')
+    if not any(isinstance(i, list) for i in values):
+        raise TypeError(
+            'One or more elements of the provided list is not a list')
+    if any(not i for i in values):
+        raise ValueError(
+            'One or more elements of the provided list is an empty list')
+    if any(not isinstance(y, str) for x in values for y in x):
         raise TypeError('One or more of the lists elements is not a string')
-    if any(not y for x in values for y in x): 
-        raise ValueError('One or more of the lists elements is an empty string')
-    
+    if any(not y for x in values for y in x):
+        raise ValueError(
+            'One or more of the lists elements is an empty string')
+
     from_file = False
     if not file_contents:
         from_file = True
         file_contents = ''
         try:
             with open(BASH_PROFILE, 'r') as f:
-                for line in f: file_contents += line
+                for line in f:
+                    file_contents += line
         except:
             # file doesn't exist
-            return  '' 
+            return ''
     elif not isinstance(file_contents, str):
         raise TypeError('file_contents is not a string')
 
     for value in values:
         value = os.path.join(*value)
-        regex_esc = value.replace('$', '\$').replace('{','\{').replace('}', '}')
+        regex_esc = re.escape(value)
         # remove duplicating values in path
-        file_contents = re.sub('(\s*export\s+PATH=".*)(?:%s:)(.*)' % regex_esc, '\\1\\2', file_contents)
-        file_contents = re.sub('(\s*export\s+PATH=".*)(?:%s)(".*)' % regex_esc, '\\1\\2', file_contents)
+        file_contents = re.sub('(\s*export\s+PATH=".*)(?:%s:)(.*)' %
+                               regex_esc, '\\1\\2', file_contents)
+        file_contents = re.sub('(\s*export\s+PATH=".*)(?:%s)(".*)' %
+                               regex_esc, '\\1\\2', file_contents)
 
         # remove empty path exports
-        file_contents = re.sub('\s*export\s+PATH=":?\$PATH:?"', '', file_contents)
+        file_contents = re.sub(
+            '\s*export\s+PATH=":?\$PATH:?"', '', file_contents)
         # remove any trailing colons in path
-        file_contents = re.sub('(\s*export\s+PATH=".*)(?::")(.*)', '\\1"\\2', file_contents)
-    
+        file_contents = re.sub(
+            '(\s*export\s+PATH=".*)(?::")(.*)', '\\1"\\2', file_contents)
+
     if from_file:
         with open(BASH_PROFILE, 'w') as f:
             for line in file_contents:
                 f.write(line)
     else:
         return file_contents
+
 
 def add_env_var(variables, force=False):
     '''
@@ -214,7 +243,7 @@ def add_env_var(variables, force=False):
             exported variable(s) with the same name from
             .bash_profile and append the new one(s) at the bottom.
             (default - False)
-    
+
     Example:
         add_env_var({'MYVAR': ['my', 'path']}, force=True/False)
 
@@ -224,40 +253,50 @@ def add_env_var(variables, force=False):
         export MYVAR="my/path"
         ...
     '''
-    if not isinstance(variables, dict): raise TypeError('Provided var is not a dictionary')
-    if len(variables) == 0: raise ValueError('Dictionary is empty')
-    if not any(isinstance(i, str) for i in variables): 
-        raise TypeError('One or more keys of the provided dictionary is not a string')
-    if any(not i for i in variables): 
-        raise ValueError('One or more keys of the provided dictionary is an empty string')
-    if any(not isinstance(variables[i], list) for i in variables): 
-        raise TypeError('One or more values of the provided dictionary is not a list')
-    if any(not variables[i] for i in variables): 
+    if not isinstance(variables, dict):
+        raise TypeError('Provided var is not a dictionary')
+    if len(variables) == 0:
+        raise ValueError('Dictionary is empty')
+    if not any(isinstance(i, str) for i in variables):
+        raise TypeError(
+            'One or more keys of the provided dictionary is not a string')
+    if any(not i for i in variables):
+        raise ValueError(
+            'One or more keys of the provided dictionary is an empty string')
+    if any(not isinstance(variables[i], list) for i in variables):
+        raise TypeError(
+            'One or more values of the provided dictionary is not a list')
+    if any(not variables[i] for i in variables):
         raise ValueError('One or more of the values lists is empty')
-    if any(not isinstance(y, str) for x in variables for y in variables[x]): 
-        raise TypeError('One or more of the value lists elements is not a string')
-    if any(not y for x in variables for y in variables[x]): 
-        raise ValueError('One or more of the value lists elements is an empty string')
+    if any(not isinstance(y, str) for x in variables for y in variables[x]):
+        raise TypeError(
+            'One or more of the value lists elements is not a string')
+    if any(not y for x in variables for y in variables[x]):
+        raise ValueError(
+            'One or more of the value lists elements is an empty string')
     file_contents = ''
     vars_to_append = dict()
 
     try:
         with open(BASH_PROFILE, 'r') as f:
-            for line in f: file_contents += line
+            for line in f:
+                file_contents += line
     except:
         # file doesn't exist
         pass
-    
-    for var in variables:      
+
+    for var in variables:
         regex = re.search('\s*export\s+%s=[^\n]+\n' % var, file_contents)
         if (var in os.environ or regex) and not force:
             continue
-        vars_to_append.update({var:os.path.join(*variables[var])})
-    
+        vars_to_append.update({var: os.path.join(*variables[var])})
+
     if force and file_contents:
         vars_to_remove = []
-        for key in vars_to_append: vars_to_remove.append(key)
-        file_contents = remove_env_var(*vars_to_remove, file_contents=file_contents)
+        for key in vars_to_append:
+            vars_to_remove.append(key)
+        file_contents = remove_env_var(
+            *vars_to_remove, file_contents=file_contents)
 
     for var in vars_to_append:
         # not stripping it from (' \t\'"'), because those chars might actually
@@ -265,10 +304,11 @@ def add_env_var(variables, force=False):
         # right value name
         value = vars_to_append[var]
         file_contents += '\nexport %s="%s"\n' % (var, value)
-    
+
     with open(BASH_PROFILE, 'w') as f:
         for line in file_contents:
             f.write(line)
+
 
 def remove_env_var(*variables, **kwargs):
     '''
@@ -287,7 +327,7 @@ def remove_env_var(*variables, **kwargs):
     Example:
         remove_env_var('MYVAR', 'MYOTHERVAR',
                        file_contents="..."/None)
-    
+
     Result:
         ...
         export MYVAR="my/path"
@@ -300,11 +340,14 @@ def remove_env_var(*variables, **kwargs):
         ...
     '''
     file_contents = kwargs.pop('file_contents', None)
-    if len(variables) == 0: raise IndexError('At least one variable must be provided')
-    if not any(isinstance(i, str) for i in variables): 
-        raise TypeError('One or more elements of the provided list is not a string')
-    if any(not i for i in variables): 
-        raise ValueError('One or more elements of the provided list is an empty string')
+    if len(variables) == 0:
+        raise IndexError('At least one variable must be provided')
+    if not any(isinstance(i, str) for i in variables):
+        raise TypeError(
+            'One or more elements of the provided list is not a string')
+    if any(not i for i in variables):
+        raise ValueError(
+            'One or more elements of the provided list is an empty string')
 
     from_file = False
     if not file_contents:
@@ -312,22 +355,25 @@ def remove_env_var(*variables, **kwargs):
         file_contents = ''
         try:
             with open(BASH_PROFILE, 'r') as f:
-                for line in f: file_contents += line
+                for line in f:
+                    file_contents += line
         except:
             # file doesn't exist
-            return ''  
+            return ''
     elif not isinstance(file_contents, str):
         raise TypeError('file_contents is not a string')
-        
+
     for var in variables:
-        file_contents = re.sub('(\s*export\s+%s=)([^\n]+)\n' % var, '', file_contents)
-    
+        file_contents = re.sub(
+            '(\s*export\s+%s=)([^\n]+)\n' % var, '', file_contents)
+
     if from_file:
         with open(BASH_PROFILE, 'w') as f:
             for line in file_contents:
                 f.write(line)
     else:
         return file_contents
+
 
 def install_app(app, passw, ext_verbose=False, cask=True, tap=None):
     '''
@@ -351,24 +397,31 @@ def install_app(app, passw, ext_verbose=False, cask=True, tap=None):
         Find a way to not raise OSError if brew is not installed.
         (Currently crashes because i don't want to create import loops with dependencies.py)
     '''
-    if not isinstance(app, str): raise TypeError("Var is not a string")
-    if not isinstance(passw, str): raise TypeError("Var is not a string")
-    if not app: raise ValueError('Var is an empty string')
+    if not isinstance(app, str):
+        raise TypeError("Var is not a string")
+    if not isinstance(passw, str):
+        raise TypeError("Var is not a string")
+    if not app:
+        raise ValueError('Var is an empty string')
     if tap is not None:
-        if not isinstance(tap, str): raise TypeError("tap var is not a string")
-        if len(tap) == 0: raise ValueError('Provided string is empty')   
-    
+        if not isinstance(tap, str):
+            raise TypeError("tap var is not a string")
+        if len(tap) == 0:
+            raise ValueError('Provided string is empty')
 
     if not check_command_exists('brew'):
         raise OSError('Homebrew is not installed, cannot install app...')
     brew = ['brew']
-    if cask: brew.append('cask')
+    if cask:
+        brew.append('cask')
     # if app is not installed
     if not ext_call(brew + ['list', app], getstdout=True):
         # dummy command, so cask won't ask for password again
         ext_call(['echo'], sudopass=passw)
-        if tap: ext_call(['brew', 'tap', tap], verbose=ext_verbose)
+        if tap:
+            ext_call(['brew', 'tap', tap], verbose=ext_verbose)
         ext_call(brew + ['install', app], verbose=ext_verbose)
+
 
 def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=[], nobrew=False,
                brewname=None, debug=False, ext_verbose=False, cask=True, tap=None):
@@ -420,58 +473,69 @@ def remove_app(app_names, passw, std_dirs=APP_DIRS, misc_files_and_dirs=[], nobr
             (for non graphical apps). Check Homebrew docs for
             additional information
             (default - True)
-    
+
     TODO:
         The whole delete app process of a non Homebrew cask app needs to be refactored
-  
+
     '''
     arg_type_check_lst = [app_names, std_dirs]
-    if misc_files_and_dirs: arg_type_check_lst.append(misc_files_and_dirs)
+    if misc_files_and_dirs:
+        arg_type_check_lst.append(misc_files_and_dirs)
     for arg in arg_type_check_lst:
         if not isinstance(arg, list):
             raise TypeError('Provided var is not a list')
-        if not any(isinstance(i, str) for i in arg): 
-            raise TypeError('One or more elements of the provided list is not a string')
-        if any(not i for i in arg): 
-            raise ValueError('One or more elements of the provided list is an empty string')
+        if not any(isinstance(i, str) for i in arg):
+            raise TypeError(
+                'One or more elements of the provided list is not a string')
+        if any(not i for i in arg):
+            raise ValueError(
+                'One or more elements of the provided list is an empty string')
 
-    if not isinstance(passw, str): raise TypeError('Var is not a string')
+    if not isinstance(passw, str):
+        raise TypeError('Var is not a string')
 
     if not (nobrew or debug):
         if tap is not None:
-            if not isinstance(tap, str): raise TypeError("tap var is not a string")
-            if len(tap) == 0: raise ValueError('Provided string is empty')      
+            if not isinstance(tap, str):
+                raise TypeError("tap var is not a string")
+            if len(tap) == 0:
+                raise ValueError('Provided string is empty')
         if not isinstance(brewname, str):
             raise TypeError('brewname var is not a string')
         if len(brewname) == 0:
             raise ValueError('Provided string is empty')
         if check_command_exists('brew'):
             brew = ['brew']
-            if cask: brew.append('cask')
+            if cask:
+                brew.append('cask')
             # dummy command, so cask wont ask for password again
             ext_call(['echo'], sudopass=passw, verbose=ext_verbose)
             ext_call(brew + ['uninstall', brewname], verbose=ext_verbose)
-            if tap: ext_call(['brew', 'untap', tap], verbose=ext_verbose)
+            if tap:
+                ext_call(['brew', 'untap', tap], verbose=ext_verbose)
 
-    if misc_files_and_dirs:      
+    if misc_files_and_dirs:
         for item in misc_files_and_dirs:
             res = glob(item)
             if res:
                 for r in res:
                     if not debug:
-                        ext_call(['rm','-rf', r], sudopass=passw, verbose=ext_verbose)   
+                        ext_call(['rm', '-rf', r], sudopass=passw,
+                                 verbose=ext_verbose)
                     else:
                         print(r)
-    
+
     for dir_ in std_dirs:
         for name in app_names:
             res = glob(os.path.join(dir_, name))
             if res:
                 for item in res:
                     if not debug:
-                        ext_call(['rm','-rf', item], sudopass=passw, verbose=ext_verbose)
+                        ext_call(['rm', '-rf', item],
+                                 sudopass=passw, verbose=ext_verbose)
                     else:
                         print(item)
+
 
 def ext_call(*cmds, **kwargs):
     '''
@@ -499,21 +563,25 @@ def ext_call(*cmds, **kwargs):
                 stdout and stderr to be printed in the terminal. Normally
                 this is only needed for debugging purposes.
                 (default - False)
-  
+
     '''
     getstdout = kwargs.pop('getstdout', False)
-    sudopass  = kwargs.pop('sudopass', None)
-    verbose   = kwargs.pop('verbose', False)
-    if len(cmds) == 0: raise IndexError('At least one command needs to be provided')
-    if not any(isinstance(i, list) for i in cmds): 
-        raise TypeError('One or more elements of the provided list is not a list')
-    if any(not i for i in cmds): 
-        raise ValueError('One or more elements of the provided list is an empty list')
-    if any(not isinstance(y, str) for x in cmds for y in x): 
+    sudopass = kwargs.pop('sudopass', None)
+    verbose = kwargs.pop('verbose', False)
+    if len(cmds) == 0:
+        raise IndexError('At least one command needs to be provided')
+    if not any(isinstance(i, list) for i in cmds):
+        raise TypeError(
+            'One or more elements of the provided list is not a list')
+    if any(not i for i in cmds):
+        raise ValueError(
+            'One or more elements of the provided list is an empty list')
+    if any(not isinstance(y, str) for x in cmds for y in x):
         raise TypeError('One or more of the lists elements is not a string')
-    if any(not y for x in cmds for y in x): 
-        raise ValueError('One or more of the lists elements is an empty string')
-    
+    if any(not y for x in cmds for y in x):
+        raise ValueError(
+            'One or more of the lists elements is an empty string')
+
     process = None
     next_process = None
     cmds_last_idx = len(cmds) - 1
@@ -527,14 +595,15 @@ def ext_call(*cmds, **kwargs):
     for i, cmd in enumerate(cmds):
         if i == 0:
             std_dict = {}
-            if not verbose: std_dict.update({"stderr":DEVNULL,
-                                             "stdout":DEVNULL})
+            if not verbose:
+                std_dict.update({"stderr": DEVNULL,
+                                 "stdout": DEVNULL})
             if sudopass:
                 sudo_echo_cmd = ['echo', "%s\n" % sudopass.strip('\n')]
                 cmd = ['sudo', '-S'] + cmd
                 process = subprocess.Popen(sudo_echo_cmd, stdout=subprocess.PIPE,
-                                           **({"stderr":DEVNULL} if not verbose else {}))
-                std_dict.update({'stdin':process.stdout})
+                                           **({"stderr": DEVNULL} if not verbose else {}))
+                std_dict.update({'stdin': process.stdout})
 
             if cmds_last_idx > 0 or getstdout:
                 std_dict.update({'stdout': subprocess.PIPE})
@@ -543,9 +612,10 @@ def ext_call(*cmds, **kwargs):
             process = next_process
 
         if i < cmds_last_idx:
-            std_dict = {'stdin':process.stdout,
-                        'stdout':subprocess.PIPE}
-            if not verbose: std_dict.update({'stderr':DEVNULL})
+            std_dict = {'stdin': process.stdout,
+                        'stdout': subprocess.PIPE}
+            if not verbose:
+                std_dict.update({'stderr': DEVNULL})
 
             next_process = subprocess.Popen(cmd, **std_dict)
             # Allow process to receive a SIGPIPE if next_process exits.
@@ -555,17 +625,18 @@ def ext_call(*cmds, **kwargs):
         else:
             if i != 0:
                 std_dict = {}
-                if not verbose: std_dict.update({"stderr":DEVNULL,
-                                                 "stdout":DEVNULL})
-                std_dict.update({'stdin':process.stdout})
+                if not verbose:
+                    std_dict.update({"stderr": DEVNULL,
+                                     "stdout": DEVNULL})
+                std_dict.update({'stdin': process.stdout})
                 if getstdout:
                     std_dict.update({'stdout': subprocess.PIPE})
                 next_process = subprocess.Popen(cmd, **std_dict)
                 process = next_process
-            
+
             stdout, _ = process.communicate()
-            if getstdout: 
-                if sys.version_info >= (3,0):
+            if getstdout:
+                if sys.version_info >= (3, 0):
                     stdout = stdout.decode('utf-8')
                 return stdout
     try:
@@ -573,14 +644,15 @@ def ext_call(*cmds, **kwargs):
     except:
         pass
 
+
 def check_command_exists(cmd):
     '''
     Checks if a given bash commands exists
     '''
     try:
-        ext_call([cmd]) 
+        ext_call([cmd])
     except OSError as e:
-        if e.errno == errno.ENOENT:        
+        if e.errno == errno.ENOENT:
             # sometimes command remains cached and checks decides
             # that the command exists even though it doesn't
             ext_call(['hash', '-d', cmd])
@@ -591,11 +663,13 @@ def check_command_exists(cmd):
         raise Exception(e)
     return True
 
+
 def check_path_exists(path):
     '''
     Checks if a given directory/file exists
     '''
     return os.path.exists(path)
+
 
 def get_file_with_parents(filepath, parent_dirs=1):
     '''
@@ -603,9 +677,10 @@ def get_file_with_parents(filepath, parent_dirs=1):
     of parent dirs attached to it.
     '''
     common = filepath
-    for i in range(parent_dirs + 1):
+    for i in range(parent_dirs + 1):  # pylint: disable=W0612
         common = os.path.dirname(common)
     return os.path.relpath(filepath, common)
+
 
 def get_symlinks(dirs, targets, basename=True):
     '''
@@ -619,22 +694,31 @@ def get_symlinks(dirs, targets, basename=True):
             or just the symlink itself
             (default True)
     '''
-    if not isinstance(dirs, list): raise TypeError('Provided var is not a list')
-    if len(dirs) == 0: raise IndexError('List is empty')    
-    if not any(isinstance(i, str) for i in dirs): 
-        raise TypeError('One or more elements of the provided list is not a string')
-    if any(not i for i in dirs): 
-        raise ValueError('One or more elements of the provided list is an empty string')
-    if not isinstance(targets, list): raise TypeError('Provided var is not a list')
-    if len(targets) == 0: raise IndexError('List is empty')    
-    if not any(isinstance(i, str) for i in targets): 
-        raise TypeError('One or more elements of the provided list is not a string')
-    if any(not i for i in targets): 
-        raise ValueError('One or more elements of the provided list is an empty string')
-        
+    if not isinstance(dirs, list):
+        raise TypeError('Provided var is not a list')
+    if len(dirs) == 0:
+        raise IndexError('List is empty')
+    if not any(isinstance(i, str) for i in dirs):
+        raise TypeError(
+            'One or more elements of the provided list is not a string')
+    if any(not i for i in dirs):
+        raise ValueError(
+            'One or more elements of the provided list is an empty string')
+    if not isinstance(targets, list):
+        raise TypeError('Provided var is not a list')
+    if len(targets) == 0:
+        raise IndexError('List is empty')
+    if not any(isinstance(i, str) for i in targets):
+        raise TypeError(
+            'One or more elements of the provided list is not a string')
+    if any(not i for i in targets):
+        raise ValueError(
+            'One or more elements of the provided list is an empty string')
+
     res = []
     for dir_ in dirs:
-        if dir_[-1] != '*': dir_ += '*'
+        if dir_[-1] != '*':
+            dir_ += '*'
         for item in glob(dir_):
             if os.path.islink(item):
                 for tgt in targets:
@@ -643,6 +727,7 @@ def get_symlinks(dirs, targets, basename=True):
                             item = os.path.basename(item)
                         res.append(item)
     return res
+
 
 def defaults_append_to_array(domain, key, value):
     '''
@@ -655,19 +740,26 @@ def defaults_append_to_array(domain, key, value):
     *   value  - string, the value to be appended to the array
 
     '''
-    if not isinstance(domain, str): raise TypeError('Provided var is not a string') 
-    if not isinstance(key, str): raise TypeError('Provided var is not a string')   
-    if not isinstance(value, str): raise TypeError('Provided var is not a string')   
-    if not domain: raise ValueError('Provided var is an empty string')
-    if not key: raise ValueError('Provided var is an empty string')
-    if not value: raise ValueError('Provided var is an empty string')
+    if not isinstance(domain, str):
+        raise TypeError('Provided var is not a string')
+    if not isinstance(key, str):
+        raise TypeError('Provided var is not a string')
+    if not isinstance(value, str):
+        raise TypeError('Provided var is not a string')
+    if not domain:
+        raise ValueError('Provided var is an empty string')
+    if not key:
+        raise ValueError('Provided var is an empty string')
+    if not value:
+        raise ValueError('Provided var is an empty string')
 
     value = '"%s"' % value.strip('"')
     arr_contents = ext_call(['defaults', 'read', domain,
-                    key], getstdout=True)
+                             key], getstdout=True)
     if not re.search(re.escape(value), arr_contents):
         ext_call(['defaults', 'write', domain,
-                    key, '-array-add', value])
+                  key, '-array-add', value])
+
 
 def defaults_delete_from_array(domain, key, value):
     '''
@@ -678,18 +770,24 @@ def defaults_delete_from_array(domain, key, value):
     *   domain - string, the domain name required for the 'defaults' command
     *   key    - string, the key name required for the 'defaults' command
     *   value  - string, the value to be deleted from the array
-    
+
     '''
-    if not isinstance(domain, str): raise TypeError('Provided var is not a string') 
-    if not isinstance(key, str): raise TypeError('Provided var is not a string')   
-    if not isinstance(value, str): raise TypeError('Provided var is not a string')   
-    if not domain: raise ValueError('Provided var is an empty string')
-    if not key: raise ValueError('Provided var is an empty string')
-    if not value: raise ValueError('Provided var is an empty string')
+    if not isinstance(domain, str):
+        raise TypeError('Provided var is not a string')
+    if not isinstance(key, str):
+        raise TypeError('Provided var is not a string')
+    if not isinstance(value, str):
+        raise TypeError('Provided var is not a string')
+    if not domain:
+        raise ValueError('Provided var is an empty string')
+    if not key:
+        raise ValueError('Provided var is an empty string')
+    if not value:
+        raise ValueError('Provided var is an empty string')
 
     value = '"%s"' % value.strip('"')
     arr_contents = ext_call(['defaults', 'read', domain,
-                    key], getstdout=True)
+                             key], getstdout=True)
     if re.search('[\(\);]', arr_contents):
         # if it is indeed an array
         arr_contents = re.sub('[\n\(\);]', '', arr_contents)
@@ -698,10 +796,12 @@ def defaults_delete_from_array(domain, key, value):
         arr_contents = arr_contents.split(',')
         arr_contents.remove(value)
         cmd_arr = ['defaults', 'write', domain,
-                        key, '-array']
-        for item in arr_contents: cmd_arr.append(item)
+                   key, '-array']
+        for item in arr_contents:
+            cmd_arr.append(item)
         ext_call(['defaults', 'delete', domain, key])
         ext_call(cmd_arr)
+
 
 def get_brew_cellar():
     '''
@@ -711,7 +811,7 @@ def get_brew_cellar():
     it will return the default dir, stored in
     'BREW_PKG_DEFAULT_DIR' global variable.
     '''
-    
+
     cellar = ''
     if check_command_exists('brew'):
         cellar = ext_call(['brew', '--cellar'], getstdout=True).strip('\n')
@@ -720,11 +820,13 @@ def get_brew_cellar():
         cellar = BREW_PKG_DEFAULT_DIR
     return cellar
 
+
 def get_user_name():
     '''
     Returns current user's login name
     '''
     return os.getlogin()
+
 
 def get_home_dir():
     '''
@@ -734,4 +836,6 @@ def get_home_dir():
 
 
 if __name__ == '__main__':
-    sys.exit('Please do not call this script directly. It is called by the other mods when needed...')
+    sys.exit(
+        'Please do not call this script directly. '
+        'It is called by the other modules when needed...')
