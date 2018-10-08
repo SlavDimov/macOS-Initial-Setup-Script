@@ -262,6 +262,40 @@ def UninstallRocketChat(passw):
                     #                 ext_verbose=True,
                     )
 
+# Description:
+# Installs GIMP via Homebrew
+def InstallGIMP(passw):
+    print("Installing GIMP...")
+
+    if not util.check_command_exists('brew'):
+        dependencies.InstallHomebrew(passw)
+
+    util.install_app('gimp',
+                     passw,
+                     #   ext_verbose=True
+                     )
+
+# Description:
+# Uninstalls GIMP
+def UninstallGIMP(passw):
+    print("Uninstalling GIMP...")
+
+    cfg_file = 'org.gnome.gimp*'
+    app_dir = 'GIMP-2.10.app'
+    support_dir = 'Gimp'
+    brewname = 'gimp'
+    additional_dirs = [
+    ]
+
+    util.remove_app([cfg_file, app_dir, support_dir],
+                    passw,
+                    misc_files_and_dirs=additional_dirs,
+                    brewname=brewname,
+                    #                 debug=True,
+                    #                 nobrew=True,
+                    #                 ext_verbose=True,
+                    )
+
 
 if __name__ == '__main__':
     sys.exit(

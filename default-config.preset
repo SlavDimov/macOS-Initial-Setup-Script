@@ -10,6 +10,7 @@ InstallSpotify                          # UninstallSpotify
 # InstallVLC                            # UninstallVLC
 # InstallLibreOffice                    # UninstallLibreOffice
 InstallRocketChat                       # UninstallRocketChat
+InstallGIMP                             # UninstallGIMP
 
 ## Terminal Apps
 InstallGolang                           # UninstallGolang
