@@ -4,8 +4,6 @@
 import os
 import sys
 import re
-import sqlite3
-import time
 import argparse
 from getpass import getpass
 
@@ -56,7 +54,6 @@ class Run:
         if args.functions != None:
             func_list += args.functions
 
-        self.ask_accessibility_permition()
         self.run_func_list(func_list)
 
     def search_for_config(self, config):
@@ -85,54 +82,6 @@ class Run:
                 globals()[func](passw)
             except KeyError:
                 print('Function \'%s\' not found. Skipping...' % func)
-
-    def ask_accessibility_permition(self):
-        print("Checking for required permissions...")
-
-        check_permission_script_editor = (
-            'select exists(Select allowed from access where '
-            'service="kTCCServiceAccessibility" and '
-            'client="com.apple.ScriptEditor2" and allowed=1);')
-        check_permission_terminal = (
-            'select exists(Select allowed from access where '
-            'service="kTCCServiceAccessibility" and '
-            'client="com.apple.Terminal" and allowed=1);')
-
-        msg_title = (
-            'Please add \'Terminal\' and \'Script Editor\' '
-            'to the Accessibility Assist allowed apps')
-        msg = (
-            'In order for this script to work properly, '
-            'please add \'Terminal\' and \'Script Editor\' '
-            'apps to the Accessibility Assist allowed apps '
-            'by checking their respected checkboxes or, if '
-            'they are not there, click the \'+\' button and '
-            'navigate to Applications->Utilities->Terminal & Script Editor')
-
-        try:
-            conn = conn = sqlite3.connect(
-                '/Library/Application Support/com.apple.TCC/TCC.db')
-            with conn:
-                c = conn.cursor()
-
-                script_allowed = c.execute(
-                    check_permission_script_editor).fetchone()[0]
-                terminal_allowed = c.execute(
-                    check_permission_terminal).fetchone()[0]
-
-                if not (script_allowed and terminal_allowed):
-                    print("\n%s\n\n%s\n\n..." % (msg_title, msg))
-                    util.ext_call(['osascript', 'dependencies.scpt',
-                                   'AskForAccessibilityPermitions', msg_title, msg])
-
-                    while not (script_allowed and terminal_allowed):
-                        script_allowed = c.execute(
-                            check_permission_script_editor).fetchone()[0]
-                        terminal_allowed = c.execute(
-                            check_permission_terminal).fetchone()[0]
-                        time.sleep(1)
-        except:
-            sys.exit('Could not establish or acquire Accessibility Permissions...')
 
 
 if __name__ == '__main__':

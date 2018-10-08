@@ -9,8 +9,7 @@ from util import util
 def InstallXCodeCmdDevTools(passw):
     print('Installing XCode Command Line Developer Tools...')
 
-    util.ext_call(['osascript', 'dependencies.scpt',
-                   'InstallXCodeCmdDevTools'])
+    util.ext_call(['xcode-select', '--install'])
 
 # Description:
 # This function will remove the XCode Command Developer Tools
