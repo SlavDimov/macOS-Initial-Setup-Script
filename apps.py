@@ -296,6 +296,40 @@ def UninstallGIMP(passw):
                     #                 ext_verbose=True,
                     )
 
+# Description:
+# Installs Slack via Homebrew
+def InstallSlack(passw):
+    print("Installing Slack...")
+
+    if not util.check_command_exists('brew'):
+        dependencies.InstallHomebrew(passw)
+
+    util.install_app('slack',
+                     passw,
+                     #   ext_verbose=True
+                     )
+
+# Description:
+# Uninstalls Slack
+def UninstallSlack(passw):
+    print("Uninstalling Slack...")
+
+    cfg_file = 'com.tinyspeck.slackmacgap*'
+    app_dir = 'Slack'
+    support_dir = 'Slack'
+    brewname = 'slack'
+    additional_dirs = [
+    ]
+
+    util.remove_app([cfg_file, app_dir, support_dir],
+                    passw,
+                    misc_files_and_dirs=additional_dirs,
+                    brewname=brewname,
+                    #                 debug=True,
+                    #                 nobrew=True,
+                    #                 ext_verbose=True,
+                    )
+
 
 if __name__ == '__main__':
     sys.exit(
