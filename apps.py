@@ -315,7 +315,7 @@ def UninstallSlack(passw):
     print("Uninstalling Slack...")
 
     cfg_file = 'com.tinyspeck.slackmacgap*'
-    app_dir = 'Slack'
+    app_dir = 'Slack.app'
     support_dir = 'Slack'
     brewname = 'slack'
     additional_dirs = [
